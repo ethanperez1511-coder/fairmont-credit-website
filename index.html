@@ -1141,12 +1141,13 @@ function handleSubmit(e) {
     btn.textContent = 'Sending...';
     btn.disabled = true;
 
+    const data = Object.fromEntries(new FormData(form));
     fetch(form.action, {
         method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-    }).then(res => {
-        if (res.ok) {
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+    }).then(res => res.json()).then(res => {
+        if (res.success) {
             btn.textContent = 'Sent — we\'ll be in touch.';
             btn.style.background = '#167a50';
             form.reset();
