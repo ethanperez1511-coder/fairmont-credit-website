@@ -1025,7 +1025,7 @@
     <div class="contact-form reveal">
         <h3>Send an inquiry</h3>
         <p class="form-sub">We'll respond within one business day.</p>
-        <form id="contactForm" onsubmit="handleSubmit(event)">
+        <form id="contactForm" action="https://formspree.io/f/mreyawpe" method="POST" onsubmit="handleSubmit(event)">
             <div class="f-row">
                 <div class="f-group">
                     <label for="name">Name</label>
@@ -1133,12 +1133,32 @@ document.addEventListener('DOMContentLoaded', () => {
 // ─── Form ───
 function handleSubmit(e) {
     e.preventDefault();
-    const btn = e.target.querySelector('.submit-btn');
+    const form = e.target;
+    const btn = form.querySelector('.submit-btn');
     const orig = btn.textContent;
-    btn.textContent = 'Sent — we\'ll be in touch.';
-    btn.style.background = '#167a50';
+    btn.textContent = 'Sending...';
     btn.disabled = true;
-    setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.disabled = false; e.target.reset(); }, 3000);
+
+    fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+    }).then(res => {
+        if (res.ok) {
+            btn.textContent = 'Sent — we\'ll be in touch.';
+            btn.style.background = '#167a50';
+            form.reset();
+            setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.disabled = false; }, 3000);
+        } else {
+            btn.textContent = 'Error — please try again.';
+            btn.style.background = '#a33';
+            setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.disabled = false; }, 3000);
+        }
+    }).catch(() => {
+        btn.textContent = 'Error — please try again.';
+        btn.style.background = '#a33';
+        setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.disabled = false; }, 3000);
+    });
 }
 </script>
 
