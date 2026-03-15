@@ -1025,7 +1025,9 @@
     <div class="contact-form reveal">
         <h3>Send an inquiry</h3>
         <p class="form-sub">We'll respond within one business day.</p>
-        <form id="contactForm" action="https://formspree.io/f/mreyawpe" method="POST" onsubmit="handleSubmit(event)">
+        <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" onsubmit="handleSubmit(event)">
+            <input type="hidden" name="access_key" value="a143e2aa-3112-44f5-ba4e-c71c5e127b3c">
+            <input type="hidden" name="subject" value="New Inquiry from Fairmont Credit Partners Website">
             <div class="f-row">
                 <div class="f-group">
                     <label for="name">Name</label>
