@@ -1232,7 +1232,7 @@ function handleSubmit(e) {
             wave += sin(uv.x * freq * 2.0 + uTime * speed * 1.3 + offset * 0.7) * amp * 0.3;
             wave += noise(uv.x * 3.0 + uTime * speed * 0.5 + offset) * amp * 0.4;
 
-            float dist = abs(uv.y - (0.72 + wave));
+            float dist = abs(uv.y - (0.78 + wave));
             float core = smoothstep(thickness, 0.0, dist);
             float glow = smoothstep(thickness * 4.0, 0.0, dist) * 0.3;
             return core + glow;
@@ -1306,11 +1306,11 @@ function handleSubmit(e) {
             color += mix(deepBlue, lightBlue, 0.5) * bloom;
             totalAlpha += bloom;
 
-            // Clamp and fade — keep ribbons in upper zone, fade before text
+            // Clamp and fade — ribbons only in top 40%, fully gone before text
             totalAlpha = clamp(totalAlpha, 0.0, 1.0);
-            float fadeBottom = smoothstep(0.35, 0.55, uv.y);
-            float fadeTop = smoothstep(1.0, 0.9, uv.y);
-            totalAlpha *= fadeBottom * fadeTop * 0.7;
+            float fadeBottom = smoothstep(0.5, 0.65, uv.y);
+            float fadeTop = smoothstep(1.0, 0.92, uv.y);
+            totalAlpha *= fadeBottom * fadeTop * 0.65;
 
             gl_FragColor = vec4(color, totalAlpha);
         }
