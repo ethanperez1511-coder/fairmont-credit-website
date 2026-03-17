@@ -1243,7 +1243,7 @@ function handleSubmit(e) {
             wave += sin(uv.x * freq * 2.0 + uTime * speed * 1.3 + offset * 0.7) * amp * 0.3;
             wave += noise(uv.x * 3.0 + uTime * speed * 0.5 + offset) * amp * 0.4;
 
-            float dist = abs(uv.y - (0.62 + wave));
+            float dist = abs(uv.y - (0.66 + wave));
             float core = smoothstep(thickness, 0.0, dist);
             float glow = smoothstep(thickness * 4.0, 0.0, dist) * 0.3;
             return core + glow;
@@ -1318,8 +1318,8 @@ function handleSubmit(e) {
 
             // Clamp and fade — confined to middle band, clear of nav and text
             totalAlpha = clamp(totalAlpha, 0.0, 1.0);
-            float fadeBottom = smoothstep(0.28, 0.42, uv.y);  // fade in above text area
-            float fadeTop = smoothstep(0.88, 0.78, uv.y);     // fade out below nav
+            float fadeBottom = smoothstep(0.35, 0.48, uv.y);  // fade in above text area
+            float fadeTop = smoothstep(0.92, 0.82, uv.y);     // fade out below nav
             totalAlpha *= fadeBottom * fadeTop * 0.6;
 
             gl_FragColor = vec4(color, totalAlpha);
