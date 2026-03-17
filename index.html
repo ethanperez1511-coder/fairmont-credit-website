@@ -1246,13 +1246,12 @@ function handleSubmit(e) {
             // Subtle scroll parallax
             uv.y += uScroll * 0.15;
 
-            // Brand colors
-            vec3 deepBlue   = vec3(0.106, 0.498, 0.831);  // #1B7FD4
-            vec3 darkNavy   = vec3(0.035, 0.090, 0.161);  // #091729
-            vec3 black      = vec3(0.02, 0.02, 0.03);
-            vec3 lightBlue  = vec3(0.35, 0.65, 0.95);
-            vec3 white      = vec3(1.0, 1.0, 1.0);
-            vec3 midBlue    = vec3(0.15, 0.40, 0.70);
+            // Brand colors — matched to logo
+            vec3 brandBlue  = vec3(0.106, 0.498, 0.831);  // #1B7FD4 — logo bright blue
+            vec3 darkNavy   = vec3(0.039, 0.145, 0.314);  // #0A2550 — logo dark blue
+            vec3 deepNavy   = vec3(0.027, 0.082, 0.200);  // #071434 — deeper navy
+            vec3 lightBlue  = vec3(0.42, 0.70, 0.96);     // #6BB3F5 — bright highlight
+            vec3 iceWhite   = vec3(0.84, 0.91, 0.97);     // #D6E8F7 — soft ice blue-white
 
             vec3 color = vec3(0.0);
             float totalAlpha = 0.0;
@@ -1262,39 +1261,39 @@ function handleSubmit(e) {
             float baseSpeed = 0.22;
             float baseAmp = 0.08;
 
-            // Ribbon 1 — main bright blue
+            // Ribbon 1 — brand blue (primary)
             float r1 = ribbon(uv, 0.0, baseSpeed, baseFreq, baseAmp, 0.016);
-            vec3 c1 = mix(deepBlue, lightBlue, sin(uv.x * 1.5 + uTime * 0.15) * 0.5 + 0.5);
+            vec3 c1 = mix(brandBlue, lightBlue, sin(uv.x * 1.5 + uTime * 0.15) * 0.5 + 0.5);
             color += c1 * r1 * 1.2;
             totalAlpha += r1;
 
-            // Ribbon 2 — black ribbon
+            // Ribbon 2 — dark navy
             float r2 = ribbon(uv, 0.6, baseSpeed * 0.95, baseFreq * 1.05, baseAmp * 0.9, 0.015);
-            vec3 c2 = mix(black, darkNavy, sin(uv.x * 2.0 + uTime * 0.2) * 0.5 + 0.5);
+            vec3 c2 = mix(deepNavy, darkNavy, sin(uv.x * 2.0 + uTime * 0.2) * 0.5 + 0.5);
             color += c2 * r2 * 1.1;
             totalAlpha += r2;
 
-            // Ribbon 3 — dark navy/black (thicker)
+            // Ribbon 3 — dark navy to brand blue blend
             float r3 = ribbon(uv, 1.2, baseSpeed * 1.05, baseFreq * 0.95, baseAmp * 1.1, 0.018);
-            vec3 c3 = mix(black, midBlue, sin(uv.x * 1.0 + uTime * 0.12) * 0.3 + 0.3);
+            vec3 c3 = mix(darkNavy, brandBlue, sin(uv.x * 1.0 + uTime * 0.12) * 0.3 + 0.3);
             color += c3 * r3 * 1.0;
             totalAlpha += r3;
 
-            // Ribbon 4 — white/light accent
+            // Ribbon 4 — ice white/light accent
             float r4 = ribbon(uv, 1.8, baseSpeed * 0.9, baseFreq * 1.1, baseAmp * 0.85, 0.012);
-            vec3 c4 = mix(white, lightBlue, sin(uv.x * 3.0 + uTime * 0.25) * 0.5 + 0.5);
-            color += c4 * r4 * 0.6;
+            vec3 c4 = mix(iceWhite, lightBlue, sin(uv.x * 3.0 + uTime * 0.25) * 0.5 + 0.5);
+            color += c4 * r4 * 0.7;
             totalAlpha += r4;
 
-            // Ribbon 5 — deep black ribbon
+            // Ribbon 5 — deep navy
             float r5 = ribbon(uv, 2.4, baseSpeed * 1.0, baseFreq * 0.9, baseAmp * 0.95, 0.016);
-            vec3 c5 = mix(black, darkNavy, sin(uv.x * 1.2 + uTime * 0.1) * 0.4 + 0.4);
+            vec3 c5 = mix(deepNavy, darkNavy, sin(uv.x * 1.2 + uTime * 0.1) * 0.5 + 0.5);
             color += c5 * r5 * 1.0;
             totalAlpha += r5;
 
-            // Ribbon 6 — extra black thread
+            // Ribbon 6 — dark navy thread
             float r6 = ribbon(uv, 0.3, baseSpeed * 1.02, baseFreq * 0.98, baseAmp * 0.95, 0.013);
-            vec3 c6 = mix(black, vec3(0.05, 0.08, 0.12), sin(uv.x * 1.8 + uTime * 0.18) * 0.5 + 0.5);
+            vec3 c6 = mix(darkNavy, deepNavy, sin(uv.x * 1.8 + uTime * 0.18) * 0.5 + 0.5);
             color += c6 * r6 * 1.0;
             totalAlpha += r6;
 
@@ -1303,7 +1302,7 @@ function handleSubmit(e) {
             bloom += ribbon(uv, 0.0, baseSpeed, baseFreq, baseAmp, 0.06) * 0.12;
             bloom += ribbon(uv, 0.6, baseSpeed * 0.95, baseFreq * 1.05, baseAmp * 0.9, 0.05) * 0.08;
             bloom += ribbon(uv, 1.2, baseSpeed * 1.05, baseFreq * 0.95, baseAmp * 1.1, 0.065) * 0.10;
-            color += mix(deepBlue, lightBlue, 0.5) * bloom;
+            color += mix(brandBlue, lightBlue, 0.5) * bloom;
             totalAlpha += bloom;
 
             // Clamp and fade — ribbons only in top 40%, fully gone before text
