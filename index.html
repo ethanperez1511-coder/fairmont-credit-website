@@ -178,13 +178,117 @@
         ═══════════════════════════════ */
         .hero {
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: end;
             padding: 0 clamp(1.5rem, 4vw, 3.5rem) 5rem;
             max-width: 1320px;
             margin: 0 auto;
             position: relative;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-illustration {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .hero-svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        /* Animated arcs inspired by the logo swoosh */
+        .arc-path {
+            fill: none;
+            stroke-linecap: round;
+        }
+        .arc-1 { stroke: var(--accent); stroke-width: 2.5; opacity: 0.7; }
+        .arc-2 { stroke: #0A3D6B; stroke-width: 2; opacity: 0.5; }
+        .arc-3 { stroke: var(--accent); stroke-width: 1.5; opacity: 0.35; }
+
+        @keyframes arcDraw {
+            0% { stroke-dashoffset: 600; }
+            50% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: -600; }
+        }
+
+        .arc-animated {
+            stroke-dasharray: 600;
+            animation: arcDraw 6s ease-in-out infinite;
+        }
+        .arc-animated-delay { animation-delay: -2s; }
+        .arc-animated-delay2 { animation-delay: -4s; }
+
+        /* Floating nodes */
+        .node {
+            fill: var(--accent);
+            opacity: 0;
+            animation: nodeAppear 3s ease-in-out infinite;
+        }
+        @keyframes nodeAppear {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .node-ring {
+            fill: none;
+            stroke: var(--accent);
+            stroke-width: 1;
+            opacity: 0;
+            animation: ringPulse 3s ease-out infinite;
+        }
+        @keyframes ringPulse {
+            0% { opacity: 0.6; r: 6; }
+            100% { opacity: 0; r: 24; }
+        }
+
+        /* Connection lines */
+        .connection {
+            stroke: var(--accent);
+            stroke-width: 0.75;
+            opacity: 0.15;
+        }
+
+        /* Floating particles */
+        .particle {
+            fill: var(--accent);
+            opacity: 0;
+            animation: particleFloat 8s ease-in-out infinite;
+        }
+        @keyframes particleFloat {
+            0% { opacity: 0; transform: translateY(20px); }
+            20% { opacity: 0.5; }
+            80% { opacity: 0.5; }
+            100% { opacity: 0; transform: translateY(-40px); }
+        }
+
+        /* Large glow behind illustration */
+        .hero-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 400px;
+            height: 400px;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(27,127,212,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: glowPulse 5s ease-in-out infinite;
+        }
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
         }
 
         .hero-tag {
@@ -815,6 +919,8 @@
            RESPONSIVE
         ═══════════════════════════════ */
         @media (max-width: 960px) {
+            .hero { grid-template-columns: 1fr; }
+            .hero-illustration { height: 350px; margin-top: -2rem; }
             .hero h1 { font-size: clamp(2.4rem, 6vw, 4rem); }
             .hero-cols { grid-template-columns: 1fr; gap: 2rem; }
             .hero-cols .vline { display: none; }
@@ -837,6 +943,7 @@
             .nav-links { display: none; }
             .mob-toggle { display: block; }
             .hero { padding-bottom: 4rem; min-height: auto; padding-top: 9rem; }
+            .hero-illustration { height: 280px; margin-top: 0; }
             .stats { grid-template-columns: 1fr 1fr; padding: 3rem 1.5rem; gap: 1.5rem; }
             .about-inner { padding: 5rem 1.5rem; }
             .solutions { padding: 5rem 1.5rem; }
@@ -896,24 +1003,89 @@
 
 <!-- ─── HERO ─── -->
 <section class="hero" id="home">
-    <div class="hero-tag">Private Business Lending</div>
-    <h1>Capital without<br>the <em>complexity.</em></h1>
-    <div class="hero-cols">
-        <div class="hero-col">
-            <p>Fairmont Credit Partners is a private lender built for growing businesses that need capital quickly and on fair terms. We specialize in flexible financing aligned with your cash flow and strategic goals.</p>
-            <a href="#contact" class="arrow-link">
-                Start a conversation
-                <span class="arrow-line"></span>
-            </a>
+    <div class="hero-content">
+        <div class="hero-tag">Private Business Lending</div>
+        <h1>Capital without<br>the <em>complexity.</em></h1>
+        <div class="hero-cols">
+            <div class="hero-col">
+                <p>Fairmont Credit Partners is a private lender built for growing businesses that need capital quickly and on fair terms. We specialize in flexible financing aligned with your cash flow and strategic goals.</p>
+                <a href="#contact" class="arrow-link">
+                    Start a conversation
+                    <span class="arrow-line"></span>
+                </a>
+            </div>
+            <div class="vline"></div>
+            <div class="hero-col">
+                <p>Whether you're expanding operations, managing seasonality, or seizing a pivotal opportunity&mdash;we move fast, communicate clearly, and structure deals that make sense for your business.</p>
+                <a href="#solutions" class="arrow-link">
+                    Explore our solutions
+                    <span class="arrow-line"></span>
+                </a>
+            </div>
         </div>
-        <div class="vline"></div>
-        <div class="hero-col">
-            <p>Whether you're expanding operations, managing seasonality, or seizing a pivotal opportunity&mdash;we move fast, communicate clearly, and structure deals that make sense for your business.</p>
-            <a href="#solutions" class="arrow-link">
-                Explore our solutions
-                <span class="arrow-line"></span>
-            </a>
-        </div>
+    </div>
+
+    <div class="hero-illustration">
+        <div class="hero-glow"></div>
+        <svg class="hero-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+            <!-- Large swoosh arcs (inspired by logo) -->
+            <path class="arc-path arc-1 arc-animated" d="M60,400 Q120,100 400,80" />
+            <path class="arc-path arc-2 arc-animated arc-animated-delay" d="M40,380 Q150,120 420,100" />
+            <path class="arc-path arc-3 arc-animated arc-animated-delay2" d="M80,420 Q100,80 380,60" />
+
+            <!-- Secondary flowing curves -->
+            <path class="arc-path arc-1 arc-animated arc-animated-delay" d="M100,450 Q250,200 450,180" style="stroke-width:1;opacity:0.25" />
+            <path class="arc-path arc-2 arc-animated arc-animated-delay2" d="M50,350 Q200,150 430,140" style="stroke-width:1;opacity:0.2" />
+
+            <!-- Connection lines between nodes -->
+            <line class="connection" x1="150" y1="280" x2="280" y2="200" />
+            <line class="connection" x1="280" y1="200" x2="380" y2="160" />
+            <line class="connection" x1="150" y1="280" x2="200" y2="350" />
+            <line class="connection" x1="280" y1="200" x2="320" y2="300" />
+            <line class="connection" x1="380" y1="160" x2="420" y2="250" />
+            <line class="connection" x1="200" y1="350" x2="320" y2="300" />
+            <line class="connection" x1="320" y1="300" x2="420" y2="250" />
+            <line class="connection" x1="100" y1="200" x2="150" y2="280" />
+            <line class="connection" x1="100" y1="200" x2="280" y2="200" />
+
+            <!-- Primary nodes -->
+            <circle class="node" cx="150" cy="280" r="5" style="animation-delay:0s" />
+            <circle class="node-ring" cx="150" cy="280" r="6" style="animation-delay:0s" />
+
+            <circle class="node" cx="280" cy="200" r="7" style="animation-delay:0.5s" />
+            <circle class="node-ring" cx="280" cy="200" r="6" style="animation-delay:0.5s" />
+
+            <circle class="node" cx="380" cy="160" r="5" style="animation-delay:1s" />
+            <circle class="node-ring" cx="380" cy="160" r="6" style="animation-delay:1s" />
+
+            <circle class="node" cx="200" cy="350" r="4" style="animation-delay:1.5s" />
+            <circle class="node-ring" cx="200" cy="350" r="6" style="animation-delay:1.5s" />
+
+            <circle class="node" cx="320" cy="300" r="6" style="animation-delay:2s" />
+            <circle class="node-ring" cx="320" cy="300" r="6" style="animation-delay:2s" />
+
+            <circle class="node" cx="420" cy="250" r="4" style="animation-delay:2.5s" />
+            <circle class="node-ring" cx="420" cy="250" r="6" style="animation-delay:2.5s" />
+
+            <circle class="node" cx="100" cy="200" r="4" style="animation-delay:0.8s" />
+            <circle class="node-ring" cx="100" cy="200" r="6" style="animation-delay:0.8s" />
+
+            <!-- Small accent dots (dark navy) -->
+            <circle cx="180" cy="150" r="2" fill="#0A3D6B" opacity="0.3" />
+            <circle cx="350" cy="120" r="2.5" fill="#0A3D6B" opacity="0.25" />
+            <circle cx="440" cy="200" r="1.5" fill="#0A3D6B" opacity="0.2" />
+            <circle cx="120" cy="340" r="2" fill="#0A3D6B" opacity="0.2" />
+
+            <!-- Floating particles -->
+            <circle class="particle" cx="200" cy="250" r="1.5" style="animation-delay:0s" />
+            <circle class="particle" cx="300" cy="150" r="1" style="animation-delay:1s" />
+            <circle class="particle" cx="350" cy="280" r="1.5" style="animation-delay:2s" />
+            <circle class="particle" cx="160" cy="180" r="1" style="animation-delay:3s" />
+            <circle class="particle" cx="400" cy="200" r="1" style="animation-delay:4s" />
+            <circle class="particle" cx="250" cy="320" r="1.5" style="animation-delay:5s" />
+            <circle class="particle" cx="130" cy="250" r="1" style="animation-delay:6s" />
+            <circle class="particle" cx="370" cy="350" r="1" style="animation-delay:7s" />
+        </svg>
     </div>
 </section>
 
