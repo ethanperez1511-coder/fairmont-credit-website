@@ -1256,41 +1256,46 @@ function handleSubmit(e) {
             vec3 color = vec3(0.0);
             float totalAlpha = 0.0;
 
+            // Shared wave params — similar freq/speed for cohesion
+            float baseFreq = 2.2;
+            float baseSpeed = 0.22;
+            float baseAmp = 0.08;
+
             // Ribbon 1 — main bright blue
-            float r1 = ribbon(uv, 0.0, 0.25, 2.5, 0.12, 0.008);
+            float r1 = ribbon(uv, 0.0, baseSpeed, baseFreq, baseAmp, 0.016);
             vec3 c1 = mix(deepBlue, lightBlue, sin(uv.x * 1.5 + uTime * 0.15) * 0.5 + 0.5);
             color += c1 * r1 * 1.2;
             totalAlpha += r1;
 
-            // Ribbon 2 — white/light ribbon
-            float r2 = ribbon(uv, 2.0, 0.18, 3.0, 0.09, 0.006);
+            // Ribbon 2 — white/light ribbon (close offset)
+            float r2 = ribbon(uv, 0.6, baseSpeed * 0.95, baseFreq * 1.05, baseAmp * 0.9, 0.013);
             vec3 c2 = mix(white, lightBlue, sin(uv.x * 2.0 + uTime * 0.2) * 0.5 + 0.5);
             color += c2 * r2 * 0.8;
             totalAlpha += r2;
 
-            // Ribbon 3 — dark navy/black
-            float r3 = ribbon(uv, 4.5, 0.2, 2.0, 0.14, 0.01);
+            // Ribbon 3 — dark navy/black (close offset)
+            float r3 = ribbon(uv, 1.2, baseSpeed * 1.05, baseFreq * 0.95, baseAmp * 1.1, 0.018);
             vec3 c3 = mix(darkNavy, midBlue, sin(uv.x * 1.0 + uTime * 0.12) * 0.5 + 0.5);
             color += c3 * r3 * 1.0;
             totalAlpha += r3;
 
-            // Ribbon 4 — subtle accent
-            float r4 = ribbon(uv, 7.0, 0.15, 3.5, 0.07, 0.005);
+            // Ribbon 4 — subtle accent (close offset)
+            float r4 = ribbon(uv, 1.8, baseSpeed * 0.9, baseFreq * 1.1, baseAmp * 0.85, 0.012);
             vec3 c4 = mix(deepBlue, white, sin(uv.x * 3.0 + uTime * 0.25) * 0.5 + 0.5);
             color += c4 * r4 * 0.6;
             totalAlpha += r4;
 
-            // Ribbon 5 — deep dark ribbon
-            float r5 = ribbon(uv, 10.0, 0.22, 1.8, 0.10, 0.007);
+            // Ribbon 5 — deep dark ribbon (close offset)
+            float r5 = ribbon(uv, 2.4, baseSpeed * 1.0, baseFreq * 0.9, baseAmp * 0.95, 0.014);
             vec3 c5 = mix(darkNavy, deepBlue, sin(uv.x * 1.2 + uTime * 0.1) * 0.5 + 0.5);
             color += c5 * r5 * 0.9;
             totalAlpha += r5;
 
             // Bloom/glow pass — soft additive
             float bloom = 0.0;
-            bloom += ribbon(uv, 0.0, 0.25, 2.5, 0.12, 0.035) * 0.12;
-            bloom += ribbon(uv, 2.0, 0.18, 3.0, 0.09, 0.03) * 0.08;
-            bloom += ribbon(uv, 4.5, 0.2, 2.0, 0.14, 0.04) * 0.10;
+            bloom += ribbon(uv, 0.0, baseSpeed, baseFreq, baseAmp, 0.06) * 0.12;
+            bloom += ribbon(uv, 0.6, baseSpeed * 0.95, baseFreq * 1.05, baseAmp * 0.9, 0.05) * 0.08;
+            bloom += ribbon(uv, 1.2, baseSpeed * 1.05, baseFreq * 0.95, baseAmp * 1.1, 0.065) * 0.10;
             color += mix(deepBlue, lightBlue, 0.5) * bloom;
             totalAlpha += bloom;
 
