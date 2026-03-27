@@ -310,11 +310,11 @@
            MARQUEE STRIP
         ═══════════════════════════════ */
         .marquee-wrap {
-            border-top: 1px solid var(--line);
-            border-bottom: 1px solid var(--line);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             padding: 1.5rem 0;
             overflow: hidden;
-            background: var(--white);
+            background: var(--deep);
         }
 
         .marquee {
@@ -329,7 +329,7 @@
             font-weight: 600;
             letter-spacing: 0.18em;
             text-transform: uppercase;
-            color: var(--mid);
+            color: rgba(255, 255, 255, 0.4);
             white-space: nowrap;
             display: flex;
             align-items: center;
@@ -351,6 +351,10 @@
         /* ═══════════════════════════════
            STATS
         ═══════════════════════════════ */
+        .stats-wrap {
+            background: var(--deep);
+        }
+
         .stats {
             max-width: 1320px;
             margin: 0 auto;
@@ -371,21 +375,21 @@
             top: 0; left: 0;
             width: 32px;
             height: 2px;
-            background: var(--accent);
+            background: rgba(27, 127, 212, 0.5);
         }
 
         .stat-val {
             font-family: var(--serif);
             font-size: 1.8rem;
             font-weight: 400;
-            color: var(--ink);
+            color: var(--white);
             margin-bottom: 0.4rem;
         }
 
         .stat-label {
             font-size: 0.78rem;
             font-weight: 500;
-            color: var(--mute);
+            color: rgba(255, 255, 255, 0.5);
             line-height: 1.5;
         }
 
@@ -973,6 +977,7 @@
 </div>
 
 <!-- ─── STATS ─── -->
+<div class="stats-wrap">
 <div class="stats">
     <div class="stat-item reveal">
         <div class="stat-val">24–48 hrs</div>
@@ -990,6 +995,7 @@
         <div class="stat-val">Transparent</div>
         <div class="stat-label">Clear terms with no hidden fees or surprises</div>
     </div>
+</div>
 </div>
 
 <!-- ─── ABOUT ─── -->
