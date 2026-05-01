@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PB3SVRCD');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Application | Fairmont Credit Partners</title>
+    <meta name="description" content="Apply for business financing with Fairmont Credit Partners. Fast approvals, transparent terms.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231B7FD4'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='18' font-weight='700' fill='white'>F</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --accent: #1B7FD4;
+            --accent-dim: rgba(27, 127, 212, 0.08);
+            --deep: #091729;
+            --ink: #0e1a2b;
+            --mid: #3e5068;
+            --mute: #8899aa;
+            --faint: #c2ced9;
+            --line: #e2e8ef;
+            --wash: #f5f7fa;
+            --white: #ffffff;
+            --serif: 'DM Serif Display', Georgia, serif;
+            --sans: 'Outfit', system-ui, sans-serif;
+            --ease: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--sans);
+            color: var(--ink);
+            background: var(--wash);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        /* ═══════════════════════════════
+           HEADER
+        ═══════════════════════════════ */
+        .header {
+            background: var(--white);
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .header-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 clamp(1.5rem, 4vw, 3.5rem);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header .logo img {
+            height: 56px;
+        }
+
+        .header-title {
+            font-family: var(--serif);
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: var(--ink);
+            letter-spacing: -0.01em;
+        }
+
+        /* ═══════════════════════════════
+           FORM CONTAINER
+        ═══════════════════════════════ */
+        .form-wrap {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2.5rem clamp(1.5rem, 4vw, 3.5rem) 4rem;
+        }
+
+        .form-card {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+            padding: clamp(1.5rem, 4vw, 3rem);
+        }
+
+        /* ═══════════════════════════════
+           SECTION HEADERS
+        ═══════════════════════════════ */
+        .form-section-title {
+            font-family: var(--serif);
+            font-size: 1.35rem;
+            color: var(--ink);
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .form-section-title:first-child {
+            margin-top: 0;
+        }
+
+        /* ═══════════════════════════════
+           FORM GRID & FIELDS
+        ═══════════════════════════════ */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--mid);
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.02em;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            font-family: var(--sans);
+            font-size: 0.95rem;
+            color: var(--ink);
+            background: var(--white);
+            border: 1.5px solid var(--line);
+            border-radius: 8px;
+            padding: 0.7rem 0.9rem;
+            transition: border-color 0.25s, box-shadow 0.25s;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-dim);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%233e5068' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.9rem center;
+            padding-right: 2.4rem;
+        }
+
+        /* ═══════════════════════════════
+           RADIO GROUPS
+        ═══════════════════════════════ */
+        .radio-group {
+            display: flex;
+            gap: 1.25rem;
+            padding-top: 0.25rem;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: var(--ink);
+            cursor: pointer;
+        }
+
+        .radio-group input[type="radio"] {
+            accent-color: var(--accent);
+            width: 16px;
+            height: 16px;
+        }
+
+        /* ═══════════════════════════════
+           TERMS
+        ═══════════════════════════════ */
+        .terms-box {
+            background: var(--wash);
+            border: 1.5px solid var(--line);
+            border-radius: 8px;
+            padding: 1.25rem;
+            max-height: 200px;
+            overflow-y: auto;
+            font-size: 0.82rem;
+            line-height: 1.7;
+            color: var(--mid);
+            margin-bottom: 1.25rem;
+        }
+
+        .terms-check {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .terms-check input[type="checkbox"] {
+            accent-color: var(--accent);
+            width: 16px;
+            height: 16px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .terms-check label {
+            font-size: 0.88rem;
+            color: var(--ink);
+            cursor: pointer;
+        }
+
+        /* ═══════════════════════════════
+           SUBMIT BUTTON
+        ═══════════════════════════════ */
+        .submit-btn {
+            display: inline-block;
+            font-family: var(--sans);
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--white);
+            background: var(--ink);
+            border: none;
+            border-radius: 6px;
+            padding: 0.75rem 2.5rem;
+            cursor: pointer;
+            transition: background 0.25s var(--ease);
+            letter-spacing: 0.01em;
+            margin-top: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            background: var(--accent);
+        }
+
+        /* ═══════════════════════════════
+           FOOTER
+        ═══════════════════════════════ */
+        .footer {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            font-size: 0.78rem;
+            color: var(--mute);
+        }
+
+        /* ═══════════════════════════════
+           RESPONSIVE
+        ═══════════════════════════════ */
+        @media (max-width: 640px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-inner {
+                flex-direction: column;
+                gap: 0.75rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PB3SVRCD"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="/" class="logo"><img src="../assets/logo.jpg" alt="Fairmont Credit Partners"></a>
+            <div class="header-title">Business Application</div>
+        </div>
+    </header>
+
+    <!-- FORM -->
+    <main class="form-wrap">
+        <form class="form-card" id="applicationForm" onsubmit="return handleSubmit(event)">
+            <input type="hidden" name="_subject" value="New Application from Fairmont Credit Partners Website">
+
+            <!-- Section 1: Business Information -->
+            <h2 class="form-section-title">Business Information</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="businessName">Business Legal Name</label>
+                    <input type="text" id="businessName" name="businessName" required>
+                </div>
+                <div class="form-group">
+                    <label for="taxEin">TAX / EIN</label>
+                    <input type="text" id="taxEin" name="taxEin" required>
+                </div>
+                <div class="form-group">
+                    <label for="entityType">Entity Type</label>
+                    <select id="entityType" name="entityType" required>
+                        <option value="" disabled selected>Select entity type</option>
+                        <option value="LLC">LLC</option>
+                        <option value="Corporation">Corporation</option>
+                        <option value="Sole Proprietorship">Sole Proprietorship</option>
+                        <option value="Partnership">Partnership</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="natureOfBusiness">Nature of Business</label>
+                    <input type="text" id="natureOfBusiness" name="natureOfBusiness" required>
+                </div>
+                <div class="form-group">
+                    <label for="productService">Product / Service Offered</label>
+                    <input type="text" id="productService" name="productService" required>
+                </div>
+                <div class="form-group">
+                    <label for="lengthOfOwnership">Length of Ownership</label>
+                    <input type="text" id="lengthOfOwnership" name="lengthOfOwnership" required>
+                </div>
+                <div class="form-group">
+                    <label for="dateOfIncorporation">Date of Incorporation</label>
+                    <input type="date" id="dateOfIncorporation" name="dateOfIncorporation" required>
+                </div>
+                <div class="form-group">
+                    <label for="capitalLookingFor">Capital You're Looking For</label>
+                    <input type="text" id="capitalLookingFor" name="capitalLookingFor" placeholder="e.g. $50,000" required>
+                </div>
+                <div class="form-group full">
+                    <label for="businessAddress">Business Address</label>
+                    <input type="text" id="businessAddress" name="businessAddress" required>
+                </div>
+                <div class="form-group full">
+                    <label for="useOfFunds">Use of Funds</label>
+                    <textarea id="useOfFunds" name="useOfFunds" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Do You Accept Credit Cards?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="acceptCreditCards" value="yes" required> Yes</label>
+                        <label><input type="radio" name="acceptCreditCards" value="no"> No</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Do You Have Open MCA Positions?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="openMCA" value="yes" required> Yes</label>
+                        <label><input type="radio" name="openMCA" value="no"> No</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Business Owner Information -->
+            <h2 class="form-section-title">Business Owner Information</h2>
+            <div class="form-grid">
+                <div class="form-group full">
+                    <label for="ownerName">Full Name</label>
+                    <input type="text" id="ownerName" name="ownerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="ssn">Social Security Number</label>
+                    <input type="text" id="ssn" name="ssn" placeholder="XXX-XX-XXXX" required>
+                </div>
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+                <div class="form-group full">
+                    <label for="homeAddress">Home Address</label>
+                    <input type="text" id="homeAddress" name="homeAddress" required>
+                </div>
+                <div class="form-group">
+                    <label for="creditScore">Credit Score</label>
+                    <input type="text" id="creditScore" name="creditScore" required>
+                </div>
+            </div>
+
+            <!-- Section 3: Terms & Signature -->
+            <h2 class="form-section-title">Terms of Use</h2>
+
+            <div class="terms-box">
+                <p>By signing below, each of the above listed business and business owner/officer (individually and collectively, "you") authorize Premium Merchant Funding, 18 LLC ("PMF") and each of its representatives, successors, assigns and designees that may be involved with or acquire commercial loans having daily repayment features or purchases of future receivables including Merchant Cash Advance transactions, including without limitation the application therefor (collectively, "Transactions") to obtain consumer or personal, business and investigative reports and other information about you, including credit card processor statements and bank statements, from one or more consumer reporting agencies, such as TransUnion, Experian and Equifax, Identity IQ and from other credit bureaus, banks, creditors, government agencies and other third parties (the "Recipients"). You also authorize PMF to transmit this application form, along with any of the foregoing information obtained in connection with this application, to any or all of the Recipients for the foregoing purposes. You also consent to the release, by any creditor or financial institution, of any information relating to any of you, to PMF and to each of the Recipients, on its own behalf and authorize PMF to communicate with the Recipients on your behalf and represent you with the Recipients. You also authorize PMF and each of its Recipients to contact you via text message, automated call or email message at the contact information listed above.</p>
+            </div>
+
+            <div class="terms-check">
+                <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                <label for="agreeTerms">I have read and agree to the terms stated above.</label>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="signature">Digital Signature</label>
+                    <input type="text" id="signature" name="signature" required>
+                </div>
+                <div class="form-group">
+                    <label for="signDate">Date</label>
+                    <input type="date" id="signDate" name="signDate" required>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Application</button>
+        </form>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        &copy; 2026 Fairmont Credit Partners. All rights reserved.
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = 'https://ivdjgxutjafwjvroltjf.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml2ZGpneHV0amFmd2p2cm9sdGpmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1Njc3NjcsImV4cCI6MjA5MzE0Mzc2N30.qN8Jxh3e2amTmI74kyGMbCr1O7rdKsunQ7noMp_eE5E';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Auto-fill today's date on signature date field
+        document.getElementById('signDate').value = new Date().toISOString().split('T')[0];
+
+        async function handleSubmit(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('.submit-btn');
+            btn.textContent = 'Submitting...';
+            btn.disabled = true;
+
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            // Send to Supabase and Web3Forms simultaneously
+            const [supaResult, emailResult] = await Promise.allSettled([
+                supabase.from('applications').insert({
+                    business_name: data.businessName,
+                    tax_ein: data.taxEin,
+                    entity_type: data.entityType,
+                    nature_of_business: data.natureOfBusiness,
+                    product_service: data.productService,
+                    length_of_ownership: data.lengthOfOwnership,
+                    date_of_incorporation: data.dateOfIncorporation,
+                    capital_looking_for: data.capitalLookingFor,
+                    business_address: data.businessAddress,
+                    use_of_funds: data.useOfFunds,
+                    accept_credit_cards: data.acceptCreditCards,
+                    open_mca: data.openMCA,
+                    owner_name: data.ownerName,
+                    ssn: data.ssn,
+                    dob: data.dob,
+                    home_address: data.homeAddress,
+                    credit_score: data.creditScore,
+                    signature: data.signature,
+                    sign_date: data.signDate
+                }),
+                fetch('https://formspree.io/f/mqenalrv', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+                }).then(res => res.json())
+            ]);
+
+            const supaOk = supaResult.status === 'fulfilled' && !supaResult.value.error;
+            const emailOk = emailResult.status === 'fulfilled' && (emailResult.value.ok || emailResult.value.success);
+
+            if (supaOk || emailOk) {
+                btn.textContent = 'Submitted!';
+                btn.style.background = '#1B7FD4';
+                e.target.reset();
+                document.getElementById('signDate').value = new Date().toISOString().split('T')[0];
+            } else {
+                console.error('Submit errors:', supaResult, emailResult);
+                btn.textContent = 'Error — Try Again';
+                btn.style.background = '#c0392b';
+                btn.disabled = false;
+            }
+
+            return false;
+        }
+    </script>
+</body>
+</html>

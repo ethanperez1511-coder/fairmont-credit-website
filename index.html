@@ -8,6 +8,7 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-PB3SVRCD');</script>
     <!-- End Google Tag Manager -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fairmont Credit Partners</title>
@@ -1095,9 +1096,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="contact-form reveal">
         <h3>Send an inquiry</h3>
         <p class="form-sub">We'll respond within one business day.</p>
-        <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" onsubmit="handleSubmit(event)">
-            <input type="hidden" name="access_key" value="a143e2aa-3112-44f5-ba4e-c71c5e127b3c">
-            <input type="hidden" name="subject" value="New Inquiry from Fairmont Credit Partners Website">
+        <form id="contactForm" onsubmit="handleSubmit(event)">
+            <input type="hidden" name="_subject" value="New Inquiry from Fairmont Credit Partners Website">
             <div class="f-row">
                 <div class="f-group">
                     <label for="name">Name</label>
@@ -1202,8 +1202,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// ─── Supabase ───
+const SUPABASE_URL = 'https://ivdjgxutjafwjvroltjf.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml2ZGpneHV0amFmd2p2cm9sdGpmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1Njc3NjcsImV4cCI6MjA5MzE0Mzc2N30.qN8Jxh3e2amTmI74kyGMbCr1O7rdKsunQ7noMp_eE5E';
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 // ─── Form ───
-function handleSubmit(e) {
+async function handleSubmit(e) {
     e.preventDefault();
     const form = e.target;
     const btn = form.querySelector('.submit-btn');
@@ -1212,26 +1217,37 @@ function handleSubmit(e) {
     btn.disabled = true;
 
     const data = Object.fromEntries(new FormData(form));
-    fetch(form.action, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-    }).then(res => res.json()).then(res => {
-        if (res.success) {
-            btn.textContent = 'Sent — we\'ll be in touch.';
-            btn.style.background = '#167a50';
-            form.reset();
-            setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.disabled = false; }, 3000);
-        } else {
-            btn.textContent = 'Error — please try again.';
-            btn.style.background = '#a33';
-            setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.disabled = false; }, 3000);
-        }
-    }).catch(() => {
+
+    // Send to Supabase and Web3Forms simultaneously
+    const [supaResult, emailResult] = await Promise.allSettled([
+        supabase.from('inquiries').insert({
+            name: data.name,
+            company: data.company,
+            email: data.email,
+            phone: data.phone,
+            message: data.message
+        }),
+        fetch('https://formspree.io/f/mqenalrv', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+        }).then(res => res.json())
+    ]);
+
+    const supaOk = supaResult.status === 'fulfilled' && !supaResult.value.error;
+    const emailOk = emailResult.status === 'fulfilled' && (emailResult.value.ok || emailResult.value.success);
+
+    if (supaOk || emailOk) {
+        btn.textContent = 'Sent — we\'ll be in touch.';
+        btn.style.background = '#167a50';
+        form.reset();
+        setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.disabled = false; }, 3000);
+    } else {
+        console.error('Submit errors:', supaResult, emailResult);
         btn.textContent = 'Error — please try again.';
         btn.style.background = '#a33';
         setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.disabled = false; }, 3000);
-    });
+    }
 }
 </script>
 
