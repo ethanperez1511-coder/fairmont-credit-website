@@ -448,7 +448,7 @@
 
             // Send to Supabase and Web3Forms simultaneously
             const [supaResult, emailResult] = await Promise.allSettled([
-                supabase.from('applications').insert({
+                supabase.from('Applications').insert({
                     business_name: data.businessName,
                     tax_ein: data.taxEin,
                     entity_type: data.entityType,
