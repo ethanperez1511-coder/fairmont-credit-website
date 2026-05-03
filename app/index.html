@@ -428,11 +428,22 @@
         &copy; 2026 Fairmont Credit Partners. All rights reserved.
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         const SUPABASE_URL = 'https://ivdjgxutjafwjvroltjf.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml2ZGpneHV0amFmd2p2cm9sdGpmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1Njc3NjcsImV4cCI6MjA5MzE0Mzc2N30.qN8Jxh3e2amTmI74kyGMbCr1O7rdKsunQ7noMp_eE5E';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        function supabaseInsert(table, row) {
+            return fetch(SUPABASE_URL + '/rest/v1/' + table, {
+                method: 'POST',
+                headers: {
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+                    'Content-Type': 'application/json',
+                    'Prefer': 'return=minimal'
+                },
+                body: JSON.stringify(row)
+            });
+        }
 
         // Auto-fill today's date on signature date field
         document.getElementById('signDate').value = new Date().toISOString().split('T')[0];
@@ -446,9 +457,8 @@
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData.entries());
 
-            // Send to Supabase and Web3Forms simultaneously
             const [supaResult, emailResult] = await Promise.allSettled([
-                supabase.from('Applications').insert({
+                supabaseInsert('Applications', {
                     business_name: data.businessName,
                     tax_ein: data.taxEin,
                     entity_type: data.entityType,
@@ -473,11 +483,11 @@
                     method: 'POST',
                     body: JSON.stringify(data),
                     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-                }).then(res => res.json())
+                })
             ]);
 
-            const supaOk = supaResult.status === 'fulfilled' && !supaResult.value.error;
-            const emailOk = emailResult.status === 'fulfilled' && (emailResult.value.ok || emailResult.value.success);
+            const supaOk = supaResult.status === 'fulfilled' && supaResult.value.ok;
+            const emailOk = emailResult.status === 'fulfilled' && emailResult.value.ok;
 
             if (supaOk || emailOk) {
                 btn.textContent = 'Submitted!';
