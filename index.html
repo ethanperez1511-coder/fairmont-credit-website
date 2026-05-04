@@ -196,7 +196,7 @@
             min-height: 100vh;
             overflow: hidden;
             background: var(--deep);
-            background-image: url('assets/miami-skyline.jpeg');
+            background-image: url('assets/miami-skyline.webp'), url('assets/miami-skyline.jpeg');
             background-size: cover;
             background-position: center 30%;
             image-rendering: high-quality;
@@ -1187,10 +1187,12 @@ const mobMenu = document.getElementById('mobMenu');
 mobToggle.addEventListener('click', () => {
     mobToggle.classList.toggle('active');
     mobMenu.classList.toggle('open');
+    document.body.style.overflow = mobMenu.classList.contains('open') ? 'hidden' : '';
 });
 mobMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
     mobToggle.classList.remove('active');
     mobMenu.classList.remove('open');
+    document.body.style.overflow = '';
 }));
 
 // ─── Reveal on scroll ───
