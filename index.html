@@ -1183,6 +1183,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 </footer>
 
+<!-- Cookie Consent -->
+<div id="cookieBanner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#0e1a2b;padding:1rem 1.5rem;z-index:9999;border-top:1px solid rgba(255,255,255,0.1);">
+    <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+        <p style="font-family:'Outfit',system-ui,sans-serif;font-size:0.85rem;color:rgba(255,255,255,0.7);margin:0;line-height:1.5;">This site uses cookies for analytics and advertising. By continuing, you consent to our use of cookies.</p>
+        <div style="display:flex;gap:0.75rem;flex-shrink:0;">
+            <button onclick="acceptCookies()" style="font-family:'Outfit',system-ui,sans-serif;font-size:0.82rem;font-weight:600;background:#1B7FD4;color:#fff;border:none;padding:0.5rem 1.25rem;border-radius:5px;cursor:pointer;">Accept</button>
+            <button onclick="declineCookies()" style="font-family:'Outfit',system-ui,sans-serif;font-size:0.82rem;font-weight:600;background:transparent;color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.2);padding:0.5rem 1.25rem;border-radius:5px;cursor:pointer;">Decline</button>
+        </div>
+    </div>
+</div>
+
+<script>
+function acceptCookies() {
+    localStorage.setItem('cookieConsent', 'accepted');
+    document.getElementById('cookieBanner').style.display = 'none';
+}
+function declineCookies() {
+    localStorage.setItem('cookieConsent', 'declined');
+    document.getElementById('cookieBanner').style.display = 'none';
+}
+if (!localStorage.getItem('cookieConsent')) {
+    document.getElementById('cookieBanner').style.display = 'block';
+}
+</script>
+
 <script>
 // ─── Scroll progress ───
 window.addEventListener('scroll', () => {
