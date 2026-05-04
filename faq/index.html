@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PB3SVRCD');</script>
+    <!-- End Google Tag Manager -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18138943490"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-18138943490');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ | Fairmont Credit Partners</title>
+    <meta name="description" content="Frequently asked questions about business financing with Fairmont Credit Partners.">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="FAQ | Fairmont Credit Partners">
+    <meta property="og:description" content="Frequently asked questions about business financing with Fairmont Credit Partners.">
+    <meta property="og:image" content="https://www.fairmontcreditpartners.com/assets/miami-skyline.jpeg">
+    <meta property="og:url" content="https://www.fairmontcreditpartners.com/faq/">
+    <meta property="og:site_name" content="Fairmont Credit Partners">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231B7FD4'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='18' font-weight='700' fill='white'>F</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --accent: #1B7FD4;
+            --deep: #091729;
+            --ink: #0e1a2b;
+            --mid: #3e5068;
+            --mute: #8899aa;
+            --line: #e2e8ef;
+            --wash: #f5f7fa;
+            --white: #ffffff;
+            --serif: 'DM Serif Display', Georgia, serif;
+            --sans: 'Outfit', system-ui, sans-serif;
+            --ease: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        body {
+            font-family: var(--sans);
+            color: var(--ink);
+            background: var(--wash);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        .header {
+            background: var(--white);
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .header-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 clamp(1.5rem, 4vw, 3.5rem);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header .logo img {
+            height: 56px;
+        }
+
+        .header-title {
+            font-family: var(--serif);
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: var(--ink);
+        }
+
+        .faq-wrap {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem clamp(1.5rem, 4vw, 3.5rem) 5rem;
+        }
+
+        .faq-wrap h1 {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            text-align: center;
+            margin-bottom: 0.75rem;
+            color: var(--ink);
+        }
+
+        .faq-sub {
+            text-align: center;
+            font-size: 1rem;
+            color: var(--mid);
+            margin-bottom: 3rem;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--line);
+        }
+
+        .faq-q {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 1.25rem 0;
+            font-family: var(--sans);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--ink);
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .faq-q::after {
+            content: '+';
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: var(--mute);
+            flex-shrink: 0;
+            transition: transform 0.3s var(--ease);
+        }
+
+        .faq-item.open .faq-q::after {
+            transform: rotate(45deg);
+            color: var(--accent);
+        }
+
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s var(--ease);
+        }
+
+        .faq-a p {
+            padding-bottom: 1.25rem;
+            font-size: 0.92rem;
+            line-height: 1.7;
+            color: var(--mid);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent);
+            transition: opacity 0.2s;
+        }
+
+        .back-link:hover { opacity: 0.7; }
+
+        .footer {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            font-size: 0.78rem;
+            color: var(--mute);
+        }
+
+        @media (max-width: 640px) {
+            .header-inner {
+                flex-direction: column;
+                gap: 0.75rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PB3SVRCD"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <header class="header">
+        <div class="header-inner">
+            <a href="/" class="logo"><img src="../assets/logo.jpg" alt="Fairmont Credit Partners"></a>
+            <div class="header-title">FAQ</div>
+        </div>
+    </header>
+
+    <main class="faq-wrap">
+        <h1>Frequently Asked Questions</h1>
+        <p class="faq-sub">Everything you need to know about working with Fairmont Credit Partners.</p>
+
+        <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">What types of businesses do you work with?</button>
+            <div class="faq-a"><p>We work with a wide range of industries including retail, construction, healthcare, transportation, manufacturing, and professional services. If your business generates consistent revenue, we likely have a solution for you.</p></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">How fast can I get funded?</button>
+            <div class="faq-a"><p>Most approvals are made within 24–48 hours of receiving your application. Once approved, funding can be disbursed in as little as 1–3 business days depending on the product.</p></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">What are the minimum requirements to apply?</button>
+            <div class="faq-a"><p>Generally, we look for businesses with at least 6 months in operation and a minimum monthly revenue of $10,000. However, every situation is unique — reach out and we'll evaluate your options.</p></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">Will applying affect my credit score?</button>
+            <div class="faq-a"><p>Our initial review involves a soft credit pull, which does not impact your credit score. A hard pull is only performed if you decide to move forward with an offer.</p></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">What documents do I need to apply?</button>
+            <div class="faq-a"><p>To get started, we typically need 3–6 months of business bank statements, a valid ID, and a completed application. Additional documentation may be requested depending on the financing type.</p></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">Are there any upfront fees?</button>
+            <div class="faq-a"><p>No. We do not charge any upfront fees to apply or get approved. All terms and costs are disclosed clearly before you commit to any agreement.</p></div>
+        </div>
+
+        <a href="/" class="back-link">&larr; Back to Home</a>
+    </main>
+
+    <footer class="footer">
+        &copy; 2026 Fairmont Credit Partners. All rights reserved.
+    </footer>
+
+    <script>
+    function toggleFaq(btn) {
+        var item = btn.parentElement;
+        var answer = btn.nextElementSibling;
+        item.classList.toggle('open');
+        answer.style.maxHeight = answer.style.maxHeight ? null : answer.scrollHeight + 'px';
+    }
+    </script>
+</body>
+</html>
