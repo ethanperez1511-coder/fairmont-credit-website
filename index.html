@@ -223,12 +223,11 @@
 
         .hero-bg {
             position: absolute;
-            inset: 0;
+            inset: -15% 0 0 0;
             background-image: url('assets/miami-skyline.webp'), url('assets/miami-skyline.jpeg');
             background-size: cover;
             background-position: center 20%;
             image-rendering: high-quality;
-            will-change: transform;
         }
 
         .hero-wrapper::before {
@@ -1300,7 +1299,7 @@ if (!localStorage.getItem('cookieConsent')) {
 const heroBg = document.getElementById('heroBg');
 window.addEventListener('scroll', () => {
     if (window.scrollY < window.innerHeight) {
-        heroBg.style.transform = 'translateY(' + (window.scrollY * 0.3) + 'px) scale(1.05)';
+        heroBg.style.transform = 'translateY(' + (window.scrollY * 0.25) + 'px)';
     }
 }, { passive: true });
 
