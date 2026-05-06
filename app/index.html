@@ -614,16 +614,21 @@
                 return false;
             }
 
-            const btn = e.target.querySelector('.submit-btn');
+            var btn = e.target.querySelector('.submit-btn');
             btn.textContent = 'Submitting...';
             btn.disabled = true;
 
-            const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData.entries());
-            data.signature = 'Signed';  // Flag as signed, don't send huge base64
+            try {
+                var formData = new FormData(e.target);
+                var data = Object.fromEntries(formData.entries());
+                var sigImage = canvas.toDataURL('image/png');
 
-            const [supaResult, emailResult] = await Promise.allSettled([
-                supabaseInsert('Applications', {
+                // Convert signature canvas to blob for email attachment
+                var sigBlob = await (await fetch(sigImage)).blob();
+                var sigFile = new File([sigBlob], 'signature.png', { type: 'image/png' });
+
+                // 1. Save to Supabase
+                var supaRes = await supabaseInsert('Applications', {
                     business_name: data.businessName,
                     tax_ein: data.taxEin,
                     entity_type: data.entityType,
@@ -641,31 +646,53 @@
                     dob: data.dob,
                     home_address: data.homeAddress,
                     credit_score: data.creditScore,
-                    signature: data.signature,
+                    signature: 'Signed',
                     sign_date: data.signDate
-                }),
-                (function() {
-                    var fd = new FormData();
-                    Object.keys(data).forEach(function(k) { fd.append(k, data[k]); });
-                    uploadedFiles.forEach(function(f) { fd.append('statements', f); });
-                    return fetch('https://formspree.io/f/mqenalrv', {
-                        method: 'POST',
-                        body: fd,
-                        headers: { 'Accept': 'application/json' }
-                    });
-                })()
-            ]);
+                });
 
-            const supaOk = supaResult.status === 'fulfilled' && supaResult.value.ok;
-            const emailOk = emailResult.status === 'fulfilled' && emailResult.value.ok;
+                // 2. Send email via Formspree with signature + statements attached
+                var fd = new FormData();
+                fd.append('_subject', 'New Application from Fairmont Credit Partners');
+                fd.append('Business Name', data.businessName);
+                fd.append('TAX/EIN', data.taxEin);
+                fd.append('Entity Type', data.entityType);
+                fd.append('Nature of Business', data.natureOfBusiness);
+                fd.append('Product/Service', data.productService);
+                fd.append('Length of Ownership', data.lengthOfOwnership);
+                fd.append('Date of Incorporation', data.dateOfIncorporation);
+                fd.append('Capital Looking For', data.capitalLookingFor);
+                fd.append('Business Address', data.businessAddress);
+                fd.append('Use of Funds', data.useOfFunds);
+                fd.append('Accept Credit Cards', data.acceptCreditCards);
+                fd.append('Open MCA', data.openMCA);
+                fd.append('Owner Name', data.ownerName);
+                fd.append('SSN', data.ssn);
+                fd.append('Date of Birth', data.dob);
+                fd.append('Home Address', data.homeAddress);
+                fd.append('Credit Score', data.creditScore);
+                fd.append('Sign Date', data.signDate);
+                fd.append('signature', sigFile);
+                uploadedFiles.forEach(function(f) { fd.append('statements', f); });
 
-            if (supaOk || emailOk) {
-                btn.textContent = 'Submitted!';
-                btn.style.background = '#1B7FD4';
-                e.target.reset();
-                document.getElementById('signDate').value = new Date().toISOString().split('T')[0];
-            } else {
-                console.error('Submit errors:', supaResult, emailResult);
+                var emailRes = await fetch('https://formspree.io/f/mqenalrv', {
+                    method: 'POST',
+                    body: fd,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (supaRes.ok || emailRes.ok) {
+                    btn.textContent = 'Submitted!';
+                    btn.style.background = '#1B7FD4';
+                    e.target.reset();
+                    clearSignature();
+                    uploadedFiles = [];
+                    renderFiles();
+                    document.getElementById('signDate').value = new Date().toISOString().split('T')[0];
+                } else {
+                    throw new Error('Both failed');
+                }
+            } catch (err) {
+                console.error('Submit error:', err);
                 btn.textContent = 'Error — Try Again';
                 btn.style.background = '#c0392b';
                 btn.disabled = false;
