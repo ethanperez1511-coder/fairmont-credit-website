@@ -353,7 +353,7 @@
                 </div>
                 <div class="form-group">
                     <label for="taxEin">TAX / EIN</label>
-                    <input type="text" id="taxEin" name="taxEin" required>
+                    <input type="text" id="taxEin" name="taxEin" required inputmode="numeric" pattern="[\d\-]+" placeholder="XX-XXXXXXX" oninput="this.value=this.value.replace(/[^0-9\-]/g,'')">
                 </div>
                 <div class="form-group">
                     <label for="entityType">Entity Type</label>
@@ -384,7 +384,7 @@
                 </div>
                 <div class="form-group">
                     <label for="capitalLookingFor">Capital You're Looking For</label>
-                    <input type="text" id="capitalLookingFor" name="capitalLookingFor" placeholder="e.g. $50,000" required>
+                    <input type="text" id="capitalLookingFor" name="capitalLookingFor" placeholder="e.g. 50000" required inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
                 </div>
                 <div class="form-group full">
                     <label for="businessAddress">Business Address</label>
@@ -419,7 +419,7 @@
                 </div>
                 <div class="form-group">
                     <label for="ssn">Social Security Number</label>
-                    <input type="text" id="ssn" name="ssn" placeholder="XXX-XX-XXXX" required>
+                    <input type="text" id="ssn" name="ssn" placeholder="XXX-XX-XXXX" required inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9\-]/g,'')">
                 </div>
                 <div class="form-group">
                     <label for="dob">Date of Birth</label>
@@ -431,7 +431,7 @@
                 </div>
                 <div class="form-group">
                     <label for="creditScore">Credit Score</label>
-                    <input type="text" id="creditScore" name="creditScore" required>
+                    <input type="text" id="creditScore" name="creditScore" required inputmode="numeric" pattern="[0-9]+" placeholder="e.g. 720" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
                 </div>
             </div>
 
