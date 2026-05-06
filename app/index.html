@@ -475,7 +475,7 @@
                         <canvas id="sigCanvas" width="600" height="150" style="width:100%;height:150px;border:1.5px solid #e2e8ef;border-radius:8px;cursor:crosshair;background:#fff;touch-action:none;"></canvas>
                         <button type="button" onclick="clearSignature()" style="position:absolute;top:8px;right:8px;background:none;border:none;font-size:0.78rem;color:#8899aa;cursor:pointer;font-family:var(--sans);">Clear</button>
                     </div>
-                    <input type="hidden" id="signature" name="signature" required>
+                    <input type="hidden" id="signature" name="signature">
                 </div>
                 <div class="form-group">
                     <label for="signDate">Date</label>
@@ -608,12 +608,19 @@
 
         async function handleSubmit(e) {
             e.preventDefault();
+
+            if (!signed) {
+                alert('Please provide your signature before submitting.');
+                return false;
+            }
+
             const btn = e.target.querySelector('.submit-btn');
             btn.textContent = 'Submitting...';
             btn.disabled = true;
 
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData.entries());
+            data.signature = 'Signed';  // Flag as signed, don't send huge base64
 
             const [supaResult, emailResult] = await Promise.allSettled([
                 supabaseInsert('Applications', {
