@@ -650,34 +650,33 @@
                     sign_date: data.signDate
                 });
 
-                // 2. Send email via Formspree with signature + statements attached
-                var fd = new FormData();
-                fd.append('_subject', 'New Application from Fairmont Credit Partners');
-                fd.append('Business Name', data.businessName);
-                fd.append('TAX/EIN', data.taxEin);
-                fd.append('Entity Type', data.entityType);
-                fd.append('Nature of Business', data.natureOfBusiness);
-                fd.append('Product/Service', data.productService);
-                fd.append('Length of Ownership', data.lengthOfOwnership);
-                fd.append('Date of Incorporation', data.dateOfIncorporation);
-                fd.append('Capital Looking For', data.capitalLookingFor);
-                fd.append('Business Address', data.businessAddress);
-                fd.append('Use of Funds', data.useOfFunds);
-                fd.append('Accept Credit Cards', data.acceptCreditCards);
-                fd.append('Open MCA', data.openMCA);
-                fd.append('Owner Name', data.ownerName);
-                fd.append('SSN', data.ssn);
-                fd.append('Date of Birth', data.dob);
-                fd.append('Home Address', data.homeAddress);
-                fd.append('Credit Score', data.creditScore);
-                fd.append('Sign Date', data.signDate);
-                fd.append('signature', sigFile);
-                uploadedFiles.forEach(function(f) { fd.append('statements', f); });
-
+                // 2. Send email via Formspree (text only, no file attachments)
                 var emailRes = await fetch('https://formspree.io/f/mqenalrv', {
                     method: 'POST',
-                    body: fd,
-                    headers: { 'Accept': 'application/json' }
+                    body: JSON.stringify({
+                        _subject: 'New Application from Fairmont Credit Partners',
+                        'Business Name': data.businessName,
+                        'TAX/EIN': data.taxEin,
+                        'Entity Type': data.entityType,
+                        'Nature of Business': data.natureOfBusiness,
+                        'Product/Service': data.productService,
+                        'Length of Ownership': data.lengthOfOwnership,
+                        'Date of Incorporation': data.dateOfIncorporation,
+                        'Capital Looking For': data.capitalLookingFor,
+                        'Business Address': data.businessAddress,
+                        'Use of Funds': data.useOfFunds,
+                        'Accept Credit Cards': data.acceptCreditCards,
+                        'Open MCA': data.openMCA,
+                        'Owner Name': data.ownerName,
+                        'SSN': data.ssn,
+                        'Date of Birth': data.dob,
+                        'Home Address': data.homeAddress,
+                        'Credit Score': data.creditScore,
+                        'Sign Date': data.signDate,
+                        'Signature': 'Signed (on file)',
+                        'Statements Attached': uploadedFiles.length + ' file(s)'
+                    }),
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
                 });
 
                 if (supaRes.ok || emailRes.ok) {
