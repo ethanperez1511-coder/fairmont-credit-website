@@ -444,7 +444,19 @@
                 </div>
             </div>
 
-            <!-- Section 3: Terms & Signature -->
+            <!-- Section 3: Statements Upload -->
+            <h2 class="form-section-title">Bank Statements</h2>
+            <div class="form-group full">
+                <label for="statements">Upload 3–6 months of business bank statements (PDF, JPG, PNG)</label>
+                <div id="dropZone" style="border:2px dashed #c2ced9;border-radius:8px;padding:2rem;text-align:center;cursor:pointer;transition:border-color 0.25s,background 0.25s;" onclick="document.getElementById('statements').click()">
+                    <p style="margin:0;color:#8899aa;font-size:0.9rem;">Drag & drop files here or <span style="color:#1B7FD4;font-weight:600;">browse</span></p>
+                    <p style="margin:0.5rem 0 0;color:#c2ced9;font-size:0.78rem;">PDF, JPG, PNG — max 10MB each</p>
+                    <input type="file" id="statements" name="statements" multiple accept=".pdf,.jpg,.jpeg,.png" style="display:none;" onchange="handleFiles(this.files)">
+                </div>
+                <div id="fileList" style="margin-top:0.75rem;"></div>
+            </div>
+
+            <!-- Section 4: Terms & Signature -->
             <h2 class="form-section-title">Terms of Use</h2>
 
             <div class="terms-box">
@@ -495,6 +507,52 @@
                 },
                 body: JSON.stringify(row)
             });
+        }
+
+        // ─── File Upload ───
+        const dropZone = document.getElementById('dropZone');
+        const fileList = document.getElementById('fileList');
+        let uploadedFiles = [];
+
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = '#1B7FD4';
+            dropZone.style.background = 'rgba(27,127,212,0.04)';
+        });
+        dropZone.addEventListener('dragleave', function() {
+            dropZone.style.borderColor = '#c2ced9';
+            dropZone.style.background = '';
+        });
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = '#c2ced9';
+            dropZone.style.background = '';
+            handleFiles(e.dataTransfer.files);
+        });
+
+        function handleFiles(files) {
+            Array.from(files).forEach(function(file) {
+                if (file.size > 10 * 1024 * 1024) {
+                    alert(file.name + ' is too large. Max 10MB.');
+                    return;
+                }
+                uploadedFiles.push(file);
+                renderFiles();
+            });
+        }
+
+        function removeFile(index) {
+            uploadedFiles.splice(index, 1);
+            renderFiles();
+        }
+
+        function renderFiles() {
+            fileList.innerHTML = uploadedFiles.map(function(f, i) {
+                return '<div style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 0.75rem;background:#f5f7fa;border-radius:6px;margin-bottom:0.4rem;font-size:0.85rem;">' +
+                    '<span style="color:#0e1a2b;">' + f.name + ' <span style="color:#8899aa;">(' + (f.size / 1024).toFixed(0) + ' KB)</span></span>' +
+                    '<button type="button" onclick="removeFile(' + i + ')" style="background:none;border:none;color:#a33;cursor:pointer;font-size:0.85rem;">Remove</button>' +
+                    '</div>';
+            }).join('');
         }
 
         // Auto-fill today's date on signature date field
@@ -579,11 +637,16 @@
                     signature: data.signature,
                     sign_date: data.signDate
                 }),
-                fetch('https://formspree.io/f/mqenalrv', {
-                    method: 'POST',
-                    body: JSON.stringify(data),
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-                })
+                (function() {
+                    var fd = new FormData();
+                    Object.keys(data).forEach(function(k) { fd.append(k, data[k]); });
+                    uploadedFiles.forEach(function(f) { fd.append('statements', f); });
+                    return fetch('https://formspree.io/f/mqenalrv', {
+                        method: 'POST',
+                        body: fd,
+                        headers: { 'Accept': 'application/json' }
+                    });
+                })()
             ]);
 
             const supaOk = supaResult.status === 'fulfilled' && supaResult.value.ok;
