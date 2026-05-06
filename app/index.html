@@ -621,13 +621,44 @@
             try {
                 var formData = new FormData(e.target);
                 var data = Object.fromEntries(formData.entries());
-                var sigImage = canvas.toDataURL('image/png');
+                var ts = Date.now();
+                var folder = data.businessName.replace(/[^a-zA-Z0-9]/g, '_') + '_' + ts;
+                var fileLinks = [];
 
-                // Convert signature canvas to blob for email attachment
-                var sigBlob = await (await fetch(sigImage)).blob();
-                var sigFile = new File([sigBlob], 'signature.png', { type: 'image/png' });
+                // 1. Upload signature to Supabase Storage
+                var sigBlob = await (await fetch(canvas.toDataURL('image/png'))).blob();
+                var sigUpload = await fetch(SUPABASE_URL + '/storage/v1/object/uploads/' + folder + '/signature.png', {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+                        'Content-Type': 'image/png'
+                    },
+                    body: sigBlob
+                });
+                if (sigUpload.ok) {
+                    fileLinks.push(SUPABASE_URL + '/storage/v1/object/public/uploads/' + folder + '/signature.png');
+                }
 
-                // 1. Save to Supabase
+                // 2. Upload statement files to Supabase Storage
+                for (var i = 0; i < uploadedFiles.length; i++) {
+                    var f = uploadedFiles[i];
+                    var fName = f.name.replace(/[^a-zA-Z0-9._\-]/g, '_');
+                    var fUpload = await fetch(SUPABASE_URL + '/storage/v1/object/uploads/' + folder + '/' + fName, {
+                        method: 'POST',
+                        headers: {
+                            'apikey': SUPABASE_ANON_KEY,
+                            'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+                            'Content-Type': f.type
+                        },
+                        body: f
+                    });
+                    if (fUpload.ok) {
+                        fileLinks.push(SUPABASE_URL + '/storage/v1/object/public/uploads/' + folder + '/' + fName);
+                    }
+                }
+
+                // 3. Save to Supabase database
                 var supaRes = await supabaseInsert('Applications', {
                     business_name: data.businessName,
                     tax_ein: data.taxEin,
@@ -646,11 +677,11 @@
                     dob: data.dob,
                     home_address: data.homeAddress,
                     credit_score: data.creditScore,
-                    signature: 'Signed',
+                    signature: fileLinks[0] || 'Signed',
                     sign_date: data.signDate
                 });
 
-                // 2. Send email via Formspree (text only, no file attachments)
+                // 4. Send email via Formspree with links to files
                 var emailRes = await fetch('https://formspree.io/f/mqenalrv', {
                     method: 'POST',
                     body: JSON.stringify({
@@ -673,8 +704,8 @@
                         'Home Address': data.homeAddress,
                         'Credit Score': data.creditScore,
                         'Sign Date': data.signDate,
-                        'Signature': 'Signed (on file)',
-                        'Statements Attached': uploadedFiles.length + ' file(s)'
+                        'Signature': fileLinks[0] || 'Signed',
+                        'Uploaded Files': fileLinks.length > 1 ? fileLinks.slice(1).join('\n') : 'None'
                     }),
                     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
                 });
