@@ -63,7 +63,7 @@ async function buildPDF(record) {
          .text(label, leftMargin, y, { width: 210 });
       doc.fontSize(10).font('Helvetica').fillColor('#333333')
          .text(value || '', valueX, y, { width: rightEdge - valueX });
-      y += 20;
+      y += 19;
     }
 
     drawField('Business Name', record.business_name);
@@ -96,7 +96,7 @@ async function buildPDF(record) {
     y += 12;
 
     // ─── TERMS ───
-    doc.fontSize(6.5).font('Helvetica').fillColor('#444444')
+    doc.fontSize(7.5).font('Helvetica').fillColor('#444444')
        .text('By signing below, each of the above listed business and business owner/officer (individually and collectively, "you") authorize Fairmont Credit Partners ("FCP") and each of its representatives, successors, assigns and designees that may be involved with or acquire commercial loans having daily repayment features or purchases of future receivables including Merchant Cash Advance transactions, including without limitation the application therefor (collectively, "Transactions") to obtain consumer or personal, business and investigative reports and other information about you, including credit card processor statements and bank statements, from one or more consumer reporting agencies, such as TransUnion, Experian and Equifax, Identity IQ and from other credit bureaus, banks, creditors, government agencies and other third parties (the "Recipients"). You also authorize FCP to transmit this application form, along with any of the foregoing information obtained in connection with this application, to any or all of the Recipients for the foregoing purposes. You also consent to the release, by any creditor or financial institution, of any information relating to any of you, to FCP and to each of the Recipients, on its own behalf and authorize FCP to communicate with the Recipients on your behalf and represent you with the Recipients. You also authorize FCP and each of its Recipients to contact you via text message, automated call or email message at the contact information listed above.', leftMargin, y, { width: rightEdge - leftMargin });
 
     y = doc.y + 12;
