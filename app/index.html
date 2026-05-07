@@ -353,7 +353,7 @@
                 </div>
                 <div class="form-group">
                     <label for="taxEin">TAX / EIN</label>
-                    <input type="text" id="taxEin" name="taxEin" required inputmode="numeric" pattern="[\d\-]+" placeholder="XX-XXXXXXX" oninput="this.value=this.value.replace(/[^0-9\-]/g,'')">
+                    <input type="text" id="taxEin" name="taxEin" required inputmode="numeric" placeholder="XX-XXXXXXX" maxlength="10" oninput="var v=this.value.replace(/[^0-9]/g,'');if(v.length>2)v=v.slice(0,2)+'-'+v.slice(2);this.value=v;">
                 </div>
                 <div class="form-group">
                     <label for="entityType">Entity Type</label>
@@ -419,7 +419,7 @@
                 </div>
                 <div class="form-group">
                     <label for="ssn">Social Security Number</label>
-                    <input type="text" id="ssn" name="ssn" placeholder="XXX-XX-XXXX" required inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9\-]/g,'')">
+                    <input type="text" id="ssn" name="ssn" placeholder="XXX-XX-XXXX" required inputmode="numeric" maxlength="11" oninput="var v=this.value.replace(/[^0-9]/g,'');if(v.length>3)v=v.slice(0,3)+'-'+v.slice(3);if(v.length>6)v=v.slice(0,6)+'-'+v.slice(6);this.value=v;">
                 </div>
                 <div class="form-group">
                     <label for="dob">Date of Birth</label>
