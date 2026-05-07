@@ -1209,7 +1209,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <h3>Send an inquiry</h3>
         <p class="form-sub">We'll respond within one business day.</p>
         <form id="contactForm" onsubmit="handleSubmit(event)">
-            <input type="hidden" name="_subject" value="New Inquiry from Fairmont Credit Partners Website">
+
             <div class="f-row">
                 <div class="f-group">
                     <label for="name">Name</label>
@@ -1366,31 +1366,21 @@ async function handleSubmit(e) {
 
     const data = Object.fromEntries(new FormData(form));
 
-    const [supaResult, emailResult] = await Promise.allSettled([
-        supabaseInsert('inquiries', {
-            name: data.name,
-            company: data.company,
-            email: data.email,
-            phone: data.phone,
-            message: data.message
-        }),
-        fetch('https://formspree.io/f/mqenalrv', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-        })
-    ]);
+    const result = await supabaseInsert('inquiries', {
+        name: data.name,
+        company: data.company,
+        email: data.email,
+        phone: data.phone,
+        message: data.message
+    });
 
-    const supaOk = supaResult.status === 'fulfilled' && supaResult.value.ok;
-    const emailOk = emailResult.status === 'fulfilled' && emailResult.value.ok;
-
-    if (supaOk || emailOk) {
+    if (result.ok) {
         btn.textContent = 'Sent — we\'ll be in touch.';
         btn.style.background = '#167a50';
         form.reset();
         setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.disabled = false; }, 3000);
     } else {
-        console.error('Submit errors:', supaResult, emailResult);
+        console.error('Submit error');
         btn.textContent = 'Error — please try again.';
         btn.style.background = '#a33';
         setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.disabled = false; }, 3000);

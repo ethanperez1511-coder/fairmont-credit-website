@@ -342,7 +342,7 @@
     <!-- FORM -->
     <main class="form-wrap">
         <form class="form-card" id="applicationForm" onsubmit="handleSubmit(event); return false;">
-            <input type="hidden" name="_subject" value="New Application from Fairmont Credit Partners Website">
+
 
             <!-- Section 1: Business Information -->
             <h2 class="form-section-title">Business Information</h2>
@@ -682,36 +682,7 @@
                     file_urls: fileLinks.length > 1 ? fileLinks.slice(1).join('\n') : null
                 });
 
-                // 4. Send email via Formspree with links to files
-                var emailRes = await fetch('https://formspree.io/f/mqenalrv', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        _subject: 'New Application from Fairmont Credit Partners',
-                        'Business Name': data.businessName,
-                        'TAX/EIN': data.taxEin,
-                        'Entity Type': data.entityType,
-                        'Nature of Business': data.natureOfBusiness,
-                        'Product/Service': data.productService,
-                        'Length of Ownership': data.lengthOfOwnership,
-                        'Date of Incorporation': data.dateOfIncorporation,
-                        'Capital Looking For': data.capitalLookingFor,
-                        'Business Address': data.businessAddress,
-                        'Use of Funds': data.useOfFunds,
-                        'Accept Credit Cards': data.acceptCreditCards,
-                        'Open MCA': data.openMCA,
-                        'Owner Name': data.ownerName,
-                        'SSN': data.ssn,
-                        'Date of Birth': data.dob,
-                        'Home Address': data.homeAddress,
-                        'Credit Score': data.creditScore,
-                        'Sign Date': data.signDate,
-                        'Signature': fileLinks[0] || 'Signed',
-                        'Uploaded Files': fileLinks.length > 1 ? fileLinks.slice(1).join('\n') : 'None'
-                    }),
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-                });
-
-                if (supaRes.ok || emailRes.ok) {
+                if (supaRes.ok) {
                     btn.textContent = 'Submitted!';
                     btn.style.background = '#1B7FD4';
                     e.target.reset();
