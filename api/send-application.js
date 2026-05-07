@@ -44,19 +44,23 @@ async function buildPDF(record) {
     // ─── LOGO ───
     const logoPath = path.join(__dirname, 'logo.png');
     if (fs.existsSync(logoPath)) {
-      doc.image(logoPath, leftMargin, 25, { width: 180 });
+      doc.image(logoPath, leftMargin, 25, { width: 160 });
     }
 
     // ─── DATE (top right) ───
     doc.fontSize(10).font('Helvetica').fillColor('#333333')
-       .text(new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }), 350, 50, { align: 'right', width: rightEdge - 350 });
+       .text(new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }), 350, 45, { align: 'right', width: rightEdge - 350 });
 
-    let y = 105;
+    let y = 100;
+
+    // Separator line
+    doc.moveTo(leftMargin, y).lineTo(rightEdge, y).strokeColor('#0e1a2b').lineWidth(0.5).stroke();
+    y += 15;
 
     // ─── BUSINESS INFORMATION header ───
-    doc.fontSize(16).font('Helvetica-Bold').fillColor('#0e1a2b')
+    doc.fontSize(14).font('Helvetica-Bold').fillColor('#0e1a2b')
        .text('BUSINESS INFORMATION', leftMargin, y);
-    y += 25;
+    y += 24;
 
     function drawField(label, value) {
       doc.fontSize(10).font('Helvetica-Bold').fillColor('#0e1a2b')
@@ -80,12 +84,12 @@ async function buildPDF(record) {
     drawField('Do you Accept Credit Cards?', record.accept_credit_cards);
     drawField('Do you have open MCA?', record.open_mca);
 
-    y += 10;
+    y += 12;
 
     // ─── OWNER INFORMATION header ───
-    doc.fontSize(16).font('Helvetica-Bold').fillColor('#0e1a2b')
+    doc.fontSize(14).font('Helvetica-Bold').fillColor('#0e1a2b')
        .text('OWNER INFORMATION', leftMargin, y);
-    y += 25;
+    y += 24;
 
     drawField("Owner's Name", record.owner_name);
     drawField('SSN #', record.ssn);
@@ -93,7 +97,7 @@ async function buildPDF(record) {
     drawField('Home Address', record.home_address);
     drawField('Credit Score', record.credit_score);
 
-    y += 8;
+    y += 12;
 
     // ─── TERMS ───
     doc.fontSize(6.5).font('Helvetica').fillColor('#444444')
