@@ -678,7 +678,8 @@
                     home_address: data.homeAddress,
                     credit_score: data.creditScore,
                     signature: fileLinks[0] || 'Signed',
-                    sign_date: data.signDate
+                    sign_date: data.signDate,
+                    file_urls: fileLinks.length > 1 ? fileLinks.slice(1).join('\n') : null
                 });
 
                 // 4. Send email via Formspree with links to files
