@@ -64,8 +64,6 @@ async function buildPDF(record) {
          .text(label, leftMargin, y, { width: labelWidth, continued: false });
       doc.fontSize(11).font('Helvetica').fillColor('#333333')
          .text(value || '', valueX, y, { width: rightEdge - valueX });
-      // Underline for the value area
-      doc.moveTo(valueX, y + 15).lineTo(rightEdge, y + 15).strokeColor('#cccccc').lineWidth(0.5).stroke();
       y += 24;
     }
 
