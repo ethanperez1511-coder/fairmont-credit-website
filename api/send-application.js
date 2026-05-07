@@ -51,11 +51,7 @@ async function buildPDF(record) {
     doc.fontSize(10).font('Helvetica').fillColor('#333333')
        .text(new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }), 350, 45, { align: 'right', width: rightEdge - 350 });
 
-    let y = 100;
-
-    // Separator line
-    doc.moveTo(leftMargin, y).lineTo(rightEdge, y).strokeColor('#0e1a2b').lineWidth(0.5).stroke();
-    y += 15;
+    let y = 115;
 
     // ─── BUSINESS INFORMATION header ───
     doc.fontSize(14).font('Helvetica-Bold').fillColor('#0e1a2b')
