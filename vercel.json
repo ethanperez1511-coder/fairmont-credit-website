@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/send-application.js": {
+      "includeFiles": "api/template.xlsx"
+    }
+  }
+}

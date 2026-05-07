@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@next/third-parties": "^16.2.4",
+    "exceljs": "^4.4.0",
+    "resend": "^6.12.3"
+  }
+}
