@@ -39,32 +39,31 @@ async function buildPDF(record) {
     const pageWidth = 612;
     const leftMargin = 50;
     const rightEdge = pageWidth - 50;
-    const labelWidth = 180;
-    const valueX = 235;
+    const valueX = 270;
 
     // ─── LOGO ───
     const logoPath = path.join(__dirname, 'logo.png');
     if (fs.existsSync(logoPath)) {
-      doc.image(logoPath, leftMargin, 30, { width: 200 });
+      doc.image(logoPath, leftMargin, 25, { width: 180 });
     }
 
     // ─── DATE (top right) ───
     doc.fontSize(10).font('Helvetica').fillColor('#333333')
-       .text(new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }), 350, 55, { align: 'right', width: rightEdge - 350 });
+       .text(new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }), 350, 50, { align: 'right', width: rightEdge - 350 });
 
-    let y = 120;
+    let y = 105;
 
     // ─── BUSINESS INFORMATION header ───
-    doc.fontSize(18).font('Helvetica-Bold').fillColor('#0e1a2b')
+    doc.fontSize(16).font('Helvetica-Bold').fillColor('#0e1a2b')
        .text('BUSINESS INFORMATION', leftMargin, y);
-    y += 32;
+    y += 25;
 
     function drawField(label, value) {
-      doc.fontSize(11).font('Helvetica').fillColor('#0e1a2b')
-         .text(label, leftMargin, y, { width: labelWidth, continued: false });
-      doc.fontSize(11).font('Helvetica').fillColor('#333333')
+      doc.fontSize(10).font('Helvetica-Bold').fillColor('#0e1a2b')
+         .text(label, leftMargin, y, { width: 210 });
+      doc.fontSize(10).font('Helvetica').fillColor('#333333')
          .text(value || '', valueX, y, { width: rightEdge - valueX });
-      y += 24;
+      y += 20;
     }
 
     drawField('Business Name', record.business_name);
@@ -81,12 +80,12 @@ async function buildPDF(record) {
     drawField('Do you Accept Credit Cards?', record.accept_credit_cards);
     drawField('Do you have open MCA?', record.open_mca);
 
-    y += 15;
+    y += 10;
 
     // ─── OWNER INFORMATION header ───
-    doc.fontSize(18).font('Helvetica-Bold').fillColor('#0e1a2b')
+    doc.fontSize(16).font('Helvetica-Bold').fillColor('#0e1a2b')
        .text('OWNER INFORMATION', leftMargin, y);
-    y += 32;
+    y += 25;
 
     drawField("Owner's Name", record.owner_name);
     drawField('SSN #', record.ssn);
@@ -94,33 +93,27 @@ async function buildPDF(record) {
     drawField('Home Address', record.home_address);
     drawField('Credit Score', record.credit_score);
 
-    y += 15;
+    y += 8;
 
     // ─── TERMS ───
-    doc.fontSize(7).font('Helvetica').fillColor('#444444')
+    doc.fontSize(6.5).font('Helvetica').fillColor('#444444')
        .text('By signing below, each of the above listed business and business owner/officer (individually and collectively, "you") authorize Fairmont Credit Partners ("FCP") and each of its representatives, successors, assigns and designees that may be involved with or acquire commercial loans having daily repayment features or purchases of future receivables including Merchant Cash Advance transactions, including without limitation the application therefor (collectively, "Transactions") to obtain consumer or personal, business and investigative reports and other information about you, including credit card processor statements and bank statements, from one or more consumer reporting agencies, such as TransUnion, Experian and Equifax, Identity IQ and from other credit bureaus, banks, creditors, government agencies and other third parties (the "Recipients"). You also authorize FCP to transmit this application form, along with any of the foregoing information obtained in connection with this application, to any or all of the Recipients for the foregoing purposes. You also consent to the release, by any creditor or financial institution, of any information relating to any of you, to FCP and to each of the Recipients, on its own behalf and authorize FCP to communicate with the Recipients on your behalf and represent you with the Recipients. You also authorize FCP and each of its Recipients to contact you via text message, automated call or email message at the contact information listed above.', leftMargin, y, { width: rightEdge - leftMargin });
 
-    y = doc.y + 20;
+    y = doc.y + 12;
 
-    // ─── SIGNATURE ───
-    doc.fontSize(11).font('Helvetica').fillColor('#0e1a2b')
+    // ─── SIGNATURE (inline, no extra page) ───
+    doc.fontSize(10).font('Helvetica-Bold').fillColor('#0e1a2b')
        .text('Signature:', leftMargin, y);
 
     if (sigBuffer) {
       try {
-        doc.image(sigBuffer, valueX, y - 10, { width: 200, height: 50 });
+        doc.image(sigBuffer, valueX, y - 5, { width: 150, height: 35 });
       } catch (e) {
-        doc.text('Signed', valueX, y);
+        doc.fontSize(10).font('Helvetica').text('Signed', valueX, y);
       }
     } else {
-      doc.text('Signed', valueX, y);
+      doc.fontSize(10).font('Helvetica').text('Signed', valueX, y);
     }
-
-    y += 55;
-    doc.fontSize(11).font('Helvetica').fillColor('#0e1a2b')
-       .text('Date:', leftMargin, y);
-    doc.fontSize(11).font('Helvetica').fillColor('#333333')
-       .text(record.sign_date || '', valueX, y);
 
     doc.end();
   });
