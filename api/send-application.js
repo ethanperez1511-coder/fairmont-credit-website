@@ -1,36 +1,128 @@
-const ExcelJS = require('exceljs');
+const PDFDocument = require('pdfkit');
 const { Resend } = require('resend');
 const path = require('path');
 const fs = require('fs');
 
 const resend = new Resend('re_D9tacW4F_BpenLgZHz1MryaoxcSgaQGxb');
 
-// Map of label row -> value row, column B for labels, values go in row below
-const FIELD_MAP = {
-  business_name: { row: 13, col: 2 },
-  tax_ein: { row: 17, col: 2 },
-  entity_type: { row: 19, col: 2 },
-  nature_of_business: { row: 21, col: 2 },
-  product_service: { row: 23, col: 2 },
-  length_of_ownership: { row: 25, col: 2 },
-  business_address: { row: 27, col: 2 },
-  capital_looking_for: { row: 30, col: 2 },
-  use_of_funds: { row: 32, col: 2 },
-  accept_credit_cards: { row: 34, col: 2 },
-  open_mca: { row: 36, col: 2 },
-  owner_name: { row: 44, col: 2 },
-  ssn: { row: 46, col: 2 },
-  dob: { row: 48, col: 2 },
-  home_address: { row: 50, col: 2 },
-  credit_score: { row: 52, col: 2 },
-};
+function buildPDF(record) {
+  return new Promise((resolve) => {
+    const doc = new PDFDocument({ size: 'LETTER', margins: { top: 50, bottom: 50, left: 50, right: 50 } });
+    const chunks = [];
+    doc.on('data', (chunk) => chunks.push(chunk));
+    doc.on('end', () => resolve(Buffer.concat(chunks)));
+
+    const pageWidth = 612;
+    const leftMargin = 50;
+    const labelX = leftMargin;
+    const valueX = 230;
+    const rightEdge = pageWidth - 50;
+
+    // Logo area - Company name as header
+    doc.fontSize(22).font('Helvetica-Bold').fillColor('#1B7FD4')
+       .text('FAIRMONT CREDIT PARTNERS', leftMargin, 50, { align: 'center' });
+    doc.moveDown(0.3);
+    doc.fontSize(9).font('Helvetica').fillColor('#666666')
+       .text('Private Business Lending', { align: 'center' });
+
+    // Date - top right
+    doc.fontSize(9).font('Helvetica').fillColor('#333333')
+       .text('Date: ' + new Date().toLocaleDateString('en-US'), leftMargin, 50, { align: 'right' });
+
+    // Line separator
+    doc.moveTo(leftMargin, 100).lineTo(rightEdge, 100).strokeColor('#1B7FD4').lineWidth(2).stroke();
+
+    // ─── BUSINESS INFORMATION ───
+    let y = 115;
+    doc.fontSize(13).font('Helvetica-Bold').fillColor('#1B7FD4')
+       .text('BUSINESS INFORMATION', leftMargin, y);
+    y += 28;
+
+    const fields1 = [
+      ['Business Name', record.business_name],
+      ['TAX / EIN', record.tax_ein],
+      ['Entity Type', record.entity_type],
+      ['Nature of Business', record.nature_of_business],
+      ['Product / Service', record.product_service],
+      ['Length of Ownership', record.length_of_ownership],
+      ['Date of Incorporation', record.date_of_incorporation],
+      ['Business Address', record.business_address],
+      ['Capital Looking For', record.capital_looking_for],
+      ['Use of Funds', record.use_of_funds],
+      ['Accept Credit Cards?', record.accept_credit_cards],
+      ['Open MCA Positions?', record.open_mca],
+    ];
+
+    fields1.forEach(([label, value]) => {
+      doc.fontSize(10).font('Helvetica-Bold').fillColor('#333333')
+         .text(label + ':', labelX, y, { width: 170 });
+      doc.fontSize(10).font('Helvetica').fillColor('#000000')
+         .text(value || '', valueX, y, { width: rightEdge - valueX });
+      y += 22;
+    });
+
+    // Line separator
+    y += 8;
+    doc.moveTo(leftMargin, y).lineTo(rightEdge, y).strokeColor('#cccccc').lineWidth(0.5).stroke();
+    y += 15;
+
+    // ─── OWNER INFORMATION ───
+    doc.fontSize(13).font('Helvetica-Bold').fillColor('#1B7FD4')
+       .text('OWNER INFORMATION', leftMargin, y);
+    y += 28;
+
+    const fields2 = [
+      ['Owner\'s Name', record.owner_name],
+      ['SSN #', record.ssn],
+      ['Date of Birth', record.dob],
+      ['Home Address', record.home_address],
+      ['Credit Score', record.credit_score],
+    ];
+
+    fields2.forEach(([label, value]) => {
+      doc.fontSize(10).font('Helvetica-Bold').fillColor('#333333')
+         .text(label + ':', labelX, y, { width: 170 });
+      doc.fontSize(10).font('Helvetica').fillColor('#000000')
+         .text(value || '', valueX, y, { width: rightEdge - valueX });
+      y += 22;
+    });
+
+    // Line separator
+    y += 8;
+    doc.moveTo(leftMargin, y).lineTo(rightEdge, y).strokeColor('#cccccc').lineWidth(0.5).stroke();
+    y += 15;
+
+    // ─── TERMS ───
+    doc.fontSize(13).font('Helvetica-Bold').fillColor('#1B7FD4')
+       .text('TERMS OF USE', leftMargin, y);
+    y += 22;
+
+    doc.fontSize(7).font('Helvetica').fillColor('#555555')
+       .text('By signing below, each of the above listed business and business owner/officer (individually and collectively, "you") authorize Fairmont Credit Partners ("FCP") and each of its representatives, successors, assigns and designees that may be involved with or acquire commercial loans having daily repayment features or purchases of future receivables including Merchant Cash Advance transactions, including without limitation the application therefor (collectively, "Transactions") to obtain consumer or personal, business and investigative reports and other information about you, including credit card processor statements and bank statements, from one or more consumer reporting agencies, such as TransUnion, Experian and Equifax, Identity IQ and from other credit bureaus, banks, creditors, government agencies and other third parties (the "Recipients"). You also authorize FCP to transmit this application form, along with any of the foregoing information obtained in connection with this application, to any or all of the Recipients for the foregoing purposes.', leftMargin, y, { width: rightEdge - leftMargin });
+
+    y = doc.y + 20;
+
+    // Signature
+    doc.fontSize(10).font('Helvetica-Bold').fillColor('#333333')
+       .text('Signature:', labelX, y, { width: 170 });
+    doc.fontSize(10).font('Helvetica').fillColor('#000000')
+       .text(record.signature && record.signature.startsWith('http') ? 'See attached' : (record.signature || 'Signed'), valueX, y);
+    y += 22;
+
+    doc.fontSize(10).font('Helvetica-Bold').fillColor('#333333')
+       .text('Sign Date:', labelX, y, { width: 170 });
+    doc.fontSize(10).font('Helvetica').fillColor('#000000')
+       .text(record.sign_date || '', valueX, y);
+
+    doc.end();
+  });
+}
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // Verify webhook secret
   const secret = req.headers['x-webhook-secret'];
   if (secret !== process.env.WEBHOOK_SECRET) {
     return res.status(401).json({ error: 'Unauthorized' });
@@ -42,24 +134,35 @@ module.exports = async function handler(req, res) {
       return res.status(400).json({ error: 'No record provided' });
     }
 
-    // Load template
-    const templatePath = path.join(__dirname, 'template.xlsx');
-    const workbook = new ExcelJS.Workbook();
-    await workbook.xlsx.readFile(templatePath);
-    const ws = workbook.getWorksheet('Sheet1');
+    const pdfBuffer = await buildPDF(record);
 
-    // Fill in values
-    for (const [field, pos] of Object.entries(FIELD_MAP)) {
-      const value = record[field];
-      if (value) {
-        ws.getCell(pos.row, pos.col).value = value;
-      }
+    const attachments = [
+      {
+        filename: `FCP_Application_${(record.business_name || 'unknown').replace(/[^a-zA-Z0-9]/g, '_')}.pdf`,
+        content: pdfBuffer,
+      },
+    ];
+
+    // If signature is a URL, add it as attachment
+    if (record.signature && record.signature.startsWith('http')) {
+      attachments.push({
+        filename: 'signature.png',
+        path: record.signature,
+      });
     }
 
-    // Generate Excel buffer
-    const excelBuffer = await workbook.xlsx.writeBuffer();
+    // If file_urls exist, add them as attachments
+    if (record.file_urls) {
+      const urls = record.file_urls.split('\n').filter(Boolean);
+      urls.forEach((url, i) => {
+        const ext = url.split('.').pop() || 'pdf';
+        attachments.push({
+          filename: `statement_${i + 1}.${ext}`,
+          path: url,
+        });
+      });
+    }
 
-    // Send email with Excel attachment
     const { error } = await resend.emails.send({
       from: 'Fairmont Credit Partners <onboarding@resend.dev>',
       to: 'deals@fairmontcp.net',
@@ -68,13 +171,8 @@ module.exports = async function handler(req, res) {
              <p><strong>Business:</strong> ${record.business_name || ''}</p>
              <p><strong>Owner:</strong> ${record.owner_name || ''}</p>
              <p><strong>Capital Requested:</strong> ${record.capital_looking_for || ''}</p>
-             <p>Full application attached as Excel file.</p>`,
-      attachments: [
-        {
-          filename: `FCP_Application_${(record.business_name || 'unknown').replace(/[^a-zA-Z0-9]/g, '_')}.xlsx`,
-          content: excelBuffer,
-        },
-      ],
+             <p>Full application PDF attached along with signature and statements.</p>`,
+      attachments,
     });
 
     if (error) {
