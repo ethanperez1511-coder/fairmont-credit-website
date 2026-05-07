@@ -352,6 +352,10 @@
                     <input type="text" id="businessName" name="businessName" required>
                 </div>
                 <div class="form-group">
+                    <label for="businessDba">Business DBA</label>
+                    <input type="text" id="businessDba" name="businessDba">
+                </div>
+                <div class="form-group">
                     <label for="taxEin">TAX / EIN</label>
                     <input type="text" id="taxEin" name="taxEin" required inputmode="numeric" placeholder="XX-XXXXXXX" maxlength="10" oninput="var v=this.value.replace(/[^0-9]/g,'');if(v.length>2)v=v.slice(0,2)+'-'+v.slice(2);this.value=v;">
                 </div>
@@ -661,6 +665,7 @@
                 // 3. Save to Supabase database
                 var supaRes = await supabaseInsert('Applications', {
                     business_name: data.businessName,
+                    business_dba: data.businessDba,
                     tax_ein: data.taxEin,
                     entity_type: data.entityType,
                     nature_of_business: data.natureOfBusiness,

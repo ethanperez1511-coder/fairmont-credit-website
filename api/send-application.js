@@ -70,6 +70,7 @@ async function buildPDF(record) {
     }
 
     drawField('Business Name', record.business_name);
+    drawField('Business DBA', record.business_dba);
     drawField('TAX / EIN', record.tax_ein);
     drawField('Entity Type', record.entity_type);
     drawField('Nature of Business', record.nature_of_business);
