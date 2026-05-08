@@ -37,9 +37,18 @@ async function buildPDF(record) {
     doc.on('end', () => resolve(Buffer.concat(chunks)));
 
     const pageWidth = 612;
+    const pageHeight = 792;
     const leftMargin = 50;
     const rightEdge = pageWidth - 50;
     const valueX = 270;
+
+    // ─── DIAGONAL WATERMARK ───
+    doc.save();
+    doc.translate(pageWidth / 2, pageHeight / 2);
+    doc.rotate(-45);
+    doc.fontSize(120).font('Helvetica-Bold').fillColor('#000000').opacity(0.04)
+       .text('FCP', -150, -50, { width: 300, align: 'center' });
+    doc.restore();
 
     // ─── LOGO ───
     const logoPath = path.join(__dirname, 'logo.png');
