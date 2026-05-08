@@ -46,8 +46,8 @@ async function buildPDF(record) {
     doc.save();
     doc.translate(pageWidth / 2, pageHeight / 2);
     doc.rotate(-45);
-    doc.fontSize(140).font('Helvetica-Bold').fillColor('#d0d0d0')
-       .fillOpacity(0.2)
+    doc.fontSize(140).font('Helvetica-Bold').fillColor('#999999')
+       .fillOpacity(0.25)
        .text('FCP', -180, -70, { width: 360, align: 'center' });
     doc.fillOpacity(1);
     doc.restore();
