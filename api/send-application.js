@@ -20,6 +20,8 @@ function fetchBuffer(url) {
 }
 
 async function buildPDF(record) {
+  const isElya = record.source === 'elya';
+
   // Try to fetch signature image
   let sigBuffer = null;
   if (record.signature && record.signature.startsWith('http')) {
@@ -46,9 +48,15 @@ async function buildPDF(record) {
     doc.save();
     doc.translate(pageWidth / 2, pageHeight / 2);
     doc.rotate(-45);
-    doc.fontSize(140).font('Helvetica-Bold').fillColor('#999999')
-       .fillOpacity(0.25)
-       .text('FCP', -180, -70, { width: 360, align: 'center' });
+    if (isElya) {
+      doc.fontSize(120).font('Helvetica-Bold').fillColor('#999999')
+         .fillOpacity(0.25)
+         .text('ELYA', -200, -70, { width: 400, align: 'center' });
+    } else {
+      doc.fontSize(140).font('Helvetica-Bold').fillColor('#999999')
+         .fillOpacity(0.25)
+         .text('FCP', -180, -70, { width: 360, align: 'center' });
+    }
     doc.fillOpacity(1);
     doc.restore();
 
@@ -107,8 +115,11 @@ async function buildPDF(record) {
     y += 12;
 
     // ─── TERMS ───
+    const companyName = isElya ? 'Elya Partners' : 'Fairmont Credit Partners';
+    const companyShort = isElya ? 'Elya' : 'FCP';
+    const termsText = `By signing below, each of the above listed business and business owner/officer (individually and collectively, "you") authorize ${companyName} ("${companyShort}") and each of its representatives, successors, assigns and designees that may be involved with or acquire commercial loans having daily repayment features or purchases of future receivables including Merchant Cash Advance transactions, including without limitation the application therefor (collectively, "Transactions") to obtain consumer or personal, business and investigative reports and other information about you, including credit card processor statements and bank statements, from one or more consumer reporting agencies, such as TransUnion, Experian and Equifax, Identity IQ and from other credit bureaus, banks, creditors, government agencies and other third parties (the "Recipients"). You also authorize ${companyShort} to transmit this application form, along with any of the foregoing information obtained in connection with this application, to any or all of the Recipients for the foregoing purposes. You also consent to the release, by any creditor or financial institution, of any information relating to any of you, to ${companyShort} and to each of the Recipients, on its own behalf and authorize ${companyShort} to communicate with the Recipients on your behalf and represent you with the Recipients. You also authorize ${companyShort} and each of its Recipients to contact you via text message, automated call or email message at the contact information listed above.`;
     doc.fontSize(7.5).font('Helvetica').fillColor('#444444')
-       .text('By signing below, each of the above listed business and business owner/officer (individually and collectively, "you") authorize Fairmont Credit Partners ("FCP") and each of its representatives, successors, assigns and designees that may be involved with or acquire commercial loans having daily repayment features or purchases of future receivables including Merchant Cash Advance transactions, including without limitation the application therefor (collectively, "Transactions") to obtain consumer or personal, business and investigative reports and other information about you, including credit card processor statements and bank statements, from one or more consumer reporting agencies, such as TransUnion, Experian and Equifax, Identity IQ and from other credit bureaus, banks, creditors, government agencies and other third parties (the "Recipients"). You also authorize FCP to transmit this application form, along with any of the foregoing information obtained in connection with this application, to any or all of the Recipients for the foregoing purposes. You also consent to the release, by any creditor or financial institution, of any information relating to any of you, to FCP and to each of the Recipients, on its own behalf and authorize FCP to communicate with the Recipients on your behalf and represent you with the Recipients. You also authorize FCP and each of its Recipients to contact you via text message, automated call or email message at the contact information listed above.', leftMargin, y, { width: rightEdge - leftMargin });
+       .text(termsText, leftMargin, y, { width: rightEdge - leftMargin });
 
     y = doc.y + 12;
 
@@ -146,11 +157,14 @@ module.exports = async function handler(req, res) {
       return res.status(400).json({ error: 'No record provided' });
     }
 
+    const isElya = record.source === 'elya';
     const pdfBuffer = await buildPDF(record);
+    const prefix = isElya ? 'Elya' : 'FCP';
+    const brandName = isElya ? 'Elya Partners' : 'Fairmont Credit Partners';
 
     const attachments = [
       {
-        filename: `FCP_Application_${(record.business_name || 'unknown').replace(/[^a-zA-Z0-9]/g, '_')}.pdf`,
+        filename: `${prefix}_Application_${(record.business_name || 'unknown').replace(/[^a-zA-Z0-9]/g, '_')}.pdf`,
         content: pdfBuffer,
       },
     ];
@@ -168,10 +182,10 @@ module.exports = async function handler(req, res) {
     }
 
     const { error } = await resend.emails.send({
-      from: 'Fairmont Credit Partners <onboarding@resend.dev>',
+      from: `${brandName} <onboarding@resend.dev>`,
       to: 'deals@fairmontcp.net',
-      subject: `Application: ${record.business_name || 'Unknown Business'}`,
-      html: `<h2>New Application Received</h2>
+      subject: `${isElya ? 'Elya ' : ''}Application: ${record.business_name || 'Unknown Business'}`,
+      html: `<h2>New ${brandName} Application Received</h2>
              <p><strong>Business:</strong> ${record.business_name || ''}</p>
              <p><strong>Owner:</strong> ${record.owner_name || ''}</p>
              <p><strong>Capital Requested:</strong> ${record.capital_looking_for || ''}</p>
