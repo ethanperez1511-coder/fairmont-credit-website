@@ -3,5 +3,11 @@
     "api/send-application.js": {
       "includeFiles": "api/{template.xlsx,logo.png}"
     }
-  }
+  },
+  "crons": [
+    {
+      "path": "/api/keep-alive",
+      "schedule": "0 8 */3 * *"
+    }
+  ]
 }

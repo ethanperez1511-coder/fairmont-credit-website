@@ -1,57 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-PB3SVRCD');</script>
-    <!-- End Google Tag Manager -->
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18138943490"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'AW-18138943490');
-    </script>
-    <script>
-    function gtag_report_conversion(url) {
-      var callback = function () {
-        if (typeof(url) != 'undefined') {
-          window.location = url;
-        }
-      };
-      gtag('event', 'conversion', {
-          'send_to': 'AW-18138943490/1Vb6CJGxrqccEIKgqclD',
-          'value': 1.0,
-          'currency': 'ILS',
-          'event_callback': callback
-      });
-      return false;
-    }
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Application | Fairmont Credit Partners</title>
-    <meta name="description" content="Apply for business financing with Fairmont Credit Partners. Fast approvals, transparent terms.">
+    <title>Business Application | Elya Partners</title>
+    <meta name="description" content="Apply for business financing with Elya Partners. Fast approvals, transparent terms.">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Business Application | Fairmont Credit Partners">
-    <meta property="og:description" content="Apply for business financing with Fairmont Credit Partners. Fast approvals, transparent terms.">
-    <meta property="og:image" content="https://www.fairmontcreditpartners.com/assets/miami-skyline.jpeg">
-    <meta property="og:url" content="https://www.fairmontcreditpartners.com/app/">
-    <meta property="og:site_name" content="Fairmont Credit Partners">
+    <meta property="og:title" content="Business Application | Elya Partners">
+    <meta property="og:description" content="Apply for business financing with Elya Partners. Fast approvals, transparent terms.">
+    <meta property="og:url" content="https://www.fairmontcreditpartners.com/elya/app/">
+    <meta property="og:site_name" content="Elya Partners">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Business Application | Fairmont Credit Partners">
-    <meta name="twitter:description" content="Apply for business financing with Fairmont Credit Partners. Fast approvals, transparent terms.">
-    <meta name="twitter:image" content="https://www.fairmontcreditpartners.com/assets/miami-skyline.jpeg">
+    <meta name="twitter:title" content="Business Application | Elya Partners">
+    <meta name="twitter:description" content="Apply for business financing with Elya Partners. Fast approvals, transparent terms.">
 
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231B7FD4'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='18' font-weight='700' fill='white'>F</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23036894'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='18' font-weight='700' fill='white'>E</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -59,8 +26,8 @@
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --accent: #1B7FD4;
-            --accent-dim: rgba(27, 127, 212, 0.08);
+            --accent: #036894;
+            --accent-dim: rgba(3, 104, 148, 0.08);
             --deep: #091729;
             --ink: #0e1a2b;
             --mid: #3e5068;
@@ -69,6 +36,7 @@
             --line: #e2e8ef;
             --wash: #f5f7fa;
             --white: #ffffff;
+            --teal: #2bb2a9;
             --serif: 'DM Serif Display', Georgia, serif;
             --sans: 'Outfit', system-ui, sans-serif;
             --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -326,15 +294,11 @@
     </style>
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PB3SVRCD"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
 
     <!-- HEADER -->
     <header class="header">
         <div class="header-inner">
-            <a href="/" class="logo"><img src="../assets/logo.jpg" alt="Fairmont Credit Partners"></a>
+            <a href="/elya/app/" class="logo"><img src="../elya-partners-logo.svg" alt="Elya Partners"></a>
             <div class="header-title">Business Application</div>
         </div>
     </header>
@@ -343,6 +307,7 @@
     <main class="form-wrap">
         <form class="form-card" id="applicationForm" novalidate onsubmit="handleSubmit(event); return false;">
 
+            <input type="hidden" name="source" value="elya">
 
             <!-- Section 1: Business Information -->
             <h2 class="form-section-title">Business Information</h2>
@@ -477,7 +442,7 @@
             <div class="form-group full">
                 <label for="statements">Upload 3–6 months of business bank statements (PDF, JPG, PNG)</label>
                 <div id="dropZone" style="border:2px dashed #c2ced9;border-radius:8px;padding:2rem;text-align:center;cursor:pointer;transition:border-color 0.25s,background 0.25s;" onclick="document.getElementById('statements').click()">
-                    <p style="margin:0;color:#8899aa;font-size:0.9rem;">Drag & drop files here or <span style="color:#1B7FD4;font-weight:600;">browse</span></p>
+                    <p style="margin:0;color:#8899aa;font-size:0.9rem;">Drag & drop files here or <span style="color:#036894;font-weight:600;">browse</span></p>
                     <p style="margin:0.5rem 0 0;color:#c2ced9;font-size:0.78rem;">PDF, JPG, PNG — max 10MB each</p>
                     <input type="file" id="statements" name="statements" multiple accept=".pdf,.jpg,.jpeg,.png" style="display:none;" onchange="handleFiles(this.files)">
                 </div>
@@ -488,7 +453,7 @@
             <h2 class="form-section-title">Terms of Use</h2>
 
             <div class="terms-box">
-                <p>By signing below, each of the above listed business and business owner/officer (individually and collectively, "you") authorize Fairmont Credit Partners ("FCP") and each of its representatives, successors, assigns and designees that may be involved with or acquire commercial loans having daily repayment features or purchases of future receivables including Merchant Cash Advance transactions, including without limitation the application therefor (collectively, "Transactions") to obtain consumer or personal, business and investigative reports and other information about you, including credit card processor statements and bank statements, from one or more consumer reporting agencies, such as TransUnion, Experian and Equifax, Identity IQ and from other credit bureaus, banks, creditors, government agencies and other third parties (the "Recipients"). You also authorize FCP to transmit this application form, along with any of the foregoing information obtained in connection with this application, to any or all of the Recipients for the foregoing purposes. You also consent to the release, by any creditor or financial institution, of any information relating to any of you, to FCP and to each of the Recipients, on its own behalf and authorize FCP to communicate with the Recipients on your behalf and represent you with the Recipients. You also authorize FCP and each of its Recipients to contact you via text message, automated call or email message at the contact information listed above.</p>
+                <p>By signing below, each of the above listed business and business owner/officer (individually and collectively, "you") authorize Elya Partners ("Elya") and each of its representatives, successors, assigns and designees that may be involved with or acquire commercial loans having daily repayment features or purchases of future receivables including Merchant Cash Advance transactions, including without limitation the application therefor (collectively, "Transactions") to obtain consumer or personal, business and investigative reports and other information about you, including credit card processor statements and bank statements, from one or more consumer reporting agencies, such as TransUnion, Experian and Equifax, Identity IQ and from other credit bureaus, banks, creditors, government agencies and other third parties (the "Recipients"). You also authorize Elya to transmit this application form, along with any of the foregoing information obtained in connection with this application, to any or all of the Recipients for the foregoing purposes. You also consent to the release, by any creditor or financial institution, of any information relating to any of you, to Elya and to each of the Recipients, on its own behalf and authorize Elya to communicate with the Recipients on your behalf and represent you with the Recipients. You also authorize Elya and each of its Recipients to contact you via text message, automated call or email message at the contact information listed above.</p>
             </div>
 
             <div class="terms-check">
@@ -511,13 +476,13 @@
                 </div>
             </div>
 
-            <button type="submit" class="submit-btn" onclick="console.log('Button Clicked!'); gtag_report_conversion();">Submit Application</button>
+            <button type="submit" class="submit-btn">Submit Application</button>
         </form>
     </main>
 
     <!-- FOOTER -->
     <footer class="footer">
-        &copy; 2026 Fairmont Credit Partners. All rights reserved.
+        &copy; 2026 Elya Partners. All rights reserved.
     </footer>
 
     <script>
@@ -544,8 +509,8 @@
 
         dropZone.addEventListener('dragover', function(e) {
             e.preventDefault();
-            dropZone.style.borderColor = '#1B7FD4';
-            dropZone.style.background = 'rgba(27,127,212,0.04)';
+            dropZone.style.borderColor = '#036894';
+            dropZone.style.background = 'rgba(3,104,148,0.04)';
         });
         dropZone.addEventListener('dragleave', function() {
             dropZone.style.borderColor = '#c2ced9';
@@ -655,7 +620,7 @@
                 var formData = new FormData(e.target);
                 var data = Object.fromEntries(formData.entries());
                 var ts = Date.now();
-                var folder = data.businessName.replace(/[^a-zA-Z0-9]/g, '_') + '_' + ts;
+                var folder = 'elya_' + data.businessName.replace(/[^a-zA-Z0-9]/g, '_') + '_' + ts;
                 var fileLinks = [];
 
                 // 1. Upload signature to Supabase Storage
@@ -713,12 +678,13 @@
                     credit_score: data.creditScore,
                     signature: fileLinks[0] || 'Signed',
                     sign_date: data.signDate,
-                    file_urls: fileLinks.length > 1 ? fileLinks.slice(1).join('\n') : null
+                    file_urls: fileLinks.length > 1 ? fileLinks.slice(1).join('\n') : null,
+                    source: 'elya'
                 });
 
                 if (supaRes.ok) {
                     btn.textContent = 'Submitted!';
-                    btn.style.background = '#1B7FD4';
+                    btn.style.background = '#036894';
                     e.target.reset();
                     clearSignature();
                     uploadedFiles = [];
