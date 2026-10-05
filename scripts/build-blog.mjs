@@ -326,7 +326,7 @@ const FOOTER = `
                 <div class="footer-brand">${SITE_NAME}</div>
                 <div class="footer-contact-info">
                     <a href="mailto:deals@fairmontcp.net">deals@fairmontcp.net</a>
-                    <a href="tel:+17863584675">+1-786-358-4675</a>
+                    <a href="tel:+17866002724">(786) 600-2724</a>
                     <span>66 W Flagler St, Miami, FL 33130</span>
                 </div>
             </div>
