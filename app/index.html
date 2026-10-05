@@ -309,6 +309,31 @@
             color: var(--mute);
         }
 
+        .footer-policy {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-policy a {
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--mid);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            transition: color 0.2s;
+        }
+
+        .footer-policy a:hover { color: var(--accent); }
+
+        .footer-policy a:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
+
         /* ═══════════════════════════════
            RESPONSIVE
         ═══════════════════════════════ */
@@ -364,6 +389,10 @@
 
     <!-- FOOTER -->
     <footer class="footer">
+        <nav class="footer-policy" aria-label="Legal">
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/terms-of-service">Terms of Service</a>
+        </nav>
         &copy; 2026 Fairmont Credit Partners. All rights reserved.
     </footer>
 
