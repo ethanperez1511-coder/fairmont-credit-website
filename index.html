@@ -575,14 +575,14 @@
 
         .sol-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
         }
 
         .sol-card {
             border: 1px solid var(--line);
             border-radius: 12px;
-            padding: 2.5rem;
+            padding: clamp(1.75rem, 2.6vw, 2.5rem);
             position: relative;
             overflow: hidden;
             transition: border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
@@ -1164,7 +1164,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="sol-card reveal">
             <div class="sol-num">01</div>
             <h3>Asset-Based Lending</h3>
-            <p>Leverage inventory, equipment, real estate, and other collateral to unlock working capital for your operations.</p>
+            <p>Leverage inventory and other business collateral to unlock working capital for your operations.</p>
         </div>
         <div class="sol-card reveal">
             <div class="sol-num">02</div>
@@ -1173,11 +1173,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="sol-card reveal">
             <div class="sol-num">03</div>
-            <h3>Equipment Leasing</h3>
-            <p>Acquire the equipment you need without depleting cash reserves. Flexible lease structures aligned with your revenue.</p>
-        </div>
-        <div class="sol-card reveal">
-            <div class="sol-num">04</div>
             <h3>Working Capital</h3>
             <p>Bridge gaps, manage seasonality, or seize growth opportunities with capital tailored to your cash cycle.</p>
         </div>
