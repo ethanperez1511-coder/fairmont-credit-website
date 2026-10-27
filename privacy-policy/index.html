@@ -10,7 +10,7 @@
     <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FCP Privacy Policy</title>
+    <title>Privacy Policy | Fairmont Credit Partners</title>
     <meta name="description" content="How FCP collects, uses, and handles information, including SMS consent records and opt-out choices.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://www.fairmontcreditpartners.com/privacy-policy">
@@ -20,53 +20,50 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/blog.css">
     <style>
-        /* ─── POLICY PAGE ─── */
-        .wrap-policy { max-width: 800px; }
-
-        .policy-head { padding: 2.25rem 0 1.75rem; }
-
-        .policy-head h1 {
-            font-family: var(--serif);
-            font-size: clamp(2rem, 4.6vw, 2.9rem);
-            line-height: 1.15;
-            font-weight: 400;
-            color: var(--ink);
-            margin-bottom: 0.9rem;
-        }
-
-        .policy-updated {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--ink);
-        }
-
-        .article-body { margin-bottom: 3rem; }
-
-        .article-body h2 { margin-top: 2.9rem; }
-        .article-body h2:first-child { margin-top: 0; }
-
-        .policy-contact {
-            margin-top: 1.5rem;
-            padding: 1.25rem 1.4rem;
-            background: var(--wash);
-            border: 1px solid var(--line);
-            border-radius: 8px;
-        }
-
-        .policy-contact p { margin-bottom: 0.6rem; }
-        .policy-contact p:last-child { margin-bottom: 0; }
-
-        .article-body a:focus-visible,
+        /* Privacy-page styles only; shared site files are unchanged. */
+        body { background: #fff; }
+        .privacy-page { font-family: "Segoe UI", Arial, sans-serif; color: #101827; --policy-offset: 112px; }
+        .policy-container { width: min(1232px, calc(100% - 48px)); margin-inline: auto; }
+        .policy-title { border-bottom: 1px solid #e1e5eb; padding: 32px 0 44px; }
+        .policy-title h1 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.2; font-weight: 700; margin-bottom: 12px; }
+        .policy-updated { color: #56667a; font-size: 16px; line-height: 1.6; }
+        .policy-layout { display: grid; grid-template-columns: 276px minmax(0, 1fr); gap: 50px; align-items: start; padding-top: 50px; padding-bottom: 72px; }
+        .policy-toc { position: sticky; top: var(--policy-offset); border: 1px solid #dfe4eb; border-radius: 12px; padding: 24px 25px; max-height: calc(100dvh - var(--policy-offset) - 24px); overflow-y: auto; }
+        .policy-toc h2 { font-size: 18px; font-weight: 700; line-height: 1.5; margin: 0 0 16px; }
+        .policy-toc ol { list-style: none; padding: 0; margin: 0; }
+        .policy-toc a { display: block; border-left: 3px solid transparent; padding: 9px 12px; border-radius: 0 7px 7px 0; font-size: 15px; line-height: 1.5; color: #354963; }
+        .policy-toc a:hover { background: #f4f5f7; color: #101827; }
+        .policy-toc a[aria-current="location"] { border-left-color: #101827; background: #f2f3f5; color: #101827; font-weight: 500; }
+        .policy-copy { min-width: 0; font-size: 18px; line-height: 1.75; color: #354963; overflow-wrap: anywhere; }
+        .policy-copy .policy-name { color: #101827; font-weight: 600; margin-bottom: 24px; }
+        .policy-copy .policy-date { font-style: italic; margin-bottom: 42px; }
+        .policy-copy h2 { color: #101827; font-size: 28px; line-height: 1.3; font-weight: 600; margin: 0 0 20px; scroll-margin-top: var(--policy-offset); }
+        .policy-copy section + section { margin-top: 46px; }
+        .policy-copy h3 { color: #101827; font-size: 18px; font-style: italic; font-weight: 600; margin: 24px 0; }
+        .policy-copy p { margin: 0 0 24px; }
+        .policy-copy ul { margin: 0 0 24px; padding-left: 25px; }
+        .policy-copy li { margin-bottom: 10px; }
+        .policy-copy a { text-decoration: underline; text-underline-offset: 3px; }
+        .privacy-page a:focus-visible, .policy-copy h2:focus-visible { outline: 2px solid #1B7FD4; outline-offset: 4px; }
         .footer-links a:focus-visible,
         .footer-contact-info a:focus-visible,
         .header-nav a:focus-visible,
-        .header .logo:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 3px;
-            border-radius: 2px;
-        }
-
+        .header .logo:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
         .footer-links a:focus-visible { color: var(--white); }
+        @media (max-width: 900px) {
+            .policy-layout { grid-template-columns: 230px minmax(0, 1fr); gap: 28px; }
+            .policy-toc { padding: 20px 16px; }
+        }
+        @media (max-width: 700px) {
+            .policy-container { width: calc(100% - 40px); }
+            .policy-title { padding: 28px 0; }
+            .policy-layout { grid-template-columns: minmax(0, 1fr); gap: 36px; padding-top: 28px; }
+            .policy-toc { position: static; max-height: none; overflow: visible; }
+            .policy-toc a { padding-block: 11px; }
+            .policy-copy { font-size: 17px; }
+            .policy-copy h2 { font-size: 25px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
     </style>
 </head>
 <body>
@@ -87,98 +84,185 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 </header>
 
-<main class="wrap wrap-policy">
-    <div class="policy-head">
-        <h1>FCP Privacy Policy</h1>
-        <p class="policy-updated"><strong>Last updated: July 15, 2026</strong></p>
+<main class="privacy-page">
+    <div class="policy-title"><div class="policy-container">
+        <h1>Privacy Policy</h1>
+        <p class="policy-updated">Last Updated: <time datetime="2026-10-27">October 27, 2026</time></p>
+    </div></div>
+    <div class="policy-container policy-layout">
+        <nav class="policy-toc" aria-labelledby="policy-toc-title">
+            <h2 id="policy-toc-title">Table of Contents</h2>
+            <ol>
+                <li><a href="#overview" aria-current="location">Overview</a></li>
+                <li><a href="#information-we-collect">1. Information We Collect</a></li>
+                <li><a href="#how-we-use-information">2. How We Use Your Information</a></li>
+                <li><a href="#sharing-information">3. How We Share Information</a></li>
+                <li><a href="#cookies-and-tracking">4. Cookies and Tracking Technologies</a></li>
+                <li><a href="#data-security">5. Data Security</a></li>
+                <li><a href="#data-retention">6. Data Retention</a></li>
+                <li><a href="#third-party-websites">7. Third-Party Websites</a></li>
+                <li><a href="#state-privacy">8. U.S. State Privacy Law Disclosures</a></li>
+                <li><a href="#childrens-privacy">10. Children’s Privacy</a></li>
+                <li><a href="#policy-updates">11. Changes to This Privacy Policy</a></li>
+                <li><a href="#contact-us">12. Contact Us</a></li>
+            </ol>
+        </nav>
+        <article class="policy-copy" aria-label="Privacy Policy">
+            <p class="policy-name">Privacy Policy – Fairmont Credit Partners</p>
+            <p class="policy-date">Last Updated: <time datetime="2026-10-27">October 27, 2026</time></p>
+<section aria-labelledby="overview">
+<h2 id="overview" tabindex="-1">Overview</h2>
+<p>Your privacy is important to us. This Privacy Policy explains how Fairmont Credit Partners (“Company”, “we”, “our”, or “us”) collects, uses, protects, and shares information when you visit our website, submit an application, or interact with our services.</p>
+<p>By accessing or using our website and services, you agree to the practices described in this Privacy Policy.</p>
+<h3>Mobile Messaging Privacy</h3>
+<p>Fairmont Credit Partners is committed to protecting your privacy. Mobile information will not be shared with third parties/affiliates for marketing or promotional purposes. All other categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties.</p>
+<ul>
+<li>Information Collection: We collect your phone number only when you provide it via our web forms. This information is used solely to communicate with you regarding your funding requests.</li>
+<li>Opt-Out: You can cancel the SMS service at any time. Just text “STOP” to our number. After you send the SMS message “STOP” to us, we will send you an SMS message to confirm that you have been unsubscribed.</li>
+</ul>
+<p>Consent to receive text messages is not a condition of any purchase or service. Message and data rates may apply, and message frequency may vary.</p>
+</section>
+
+<section aria-labelledby="information-we-collect">
+<h2 id="information-we-collect" tabindex="-1">1. Information We Collect</h2>
+<p>We may collect different types of information depending on how you interact with our website or services.</p>
+<ul>
+<li>Personal Information: Data that can identify you directly or indirectly, such as full name, email address, phone number, mailing address, business name/details, and IP address/device information.</li>
+<li>Business &amp; Financial Information: If you submit a funding request or application, we may collect information such as business revenue, financial records, bank account information, business ownership details, credit-related information, and government identification numbers (where required).</li>
+<li>Automatically Collected Information: When you visit our website, we may collect data including browser type, device information, IP address, pages visited, and website usage behavior.</li>
+</ul>
+</section>
+
+<section aria-labelledby="how-we-use-information">
+<h2 id="how-we-use-information" tabindex="-1">2. How We Use Your Information</h2>
+<p>We use the information we collect for several purposes, including:</p>
+<ul>
+<li>Processing and evaluating funding applications</li>
+<li>Verifying identity and preventing fraud</li>
+<li>Communicating with you about your application or account</li>
+<li>Providing customer support</li>
+<li>Improving our website, products, and services</li>
+<li>Sending service-related updates or promotional communications</li>
+<li>Complying with legal or regulatory requirements</li>
+</ul>
+<p>We may also use aggregated or anonymized data for analytics and business insights.</p>
+<p>To the extent we use automated tools or algorithms to assist in evaluating funding applications or assessing creditworthiness, such tools are used to support, not replace, human review. Where required by applicable law, you may have the right to request human review of any automated decision that has a legal or similarly significant effect on you.</p>
+<p>To the extent we use automated tools or algorithms to assist in evaluating funding applications or assessing creditworthiness, such tools are used to support, not replace, human review. Where required by applicable law, you may have the right to request human review of any automated decision that has a legal or similarly significant effect on you.</p>
+</section>
+
+<section aria-labelledby="sharing-information">
+<h2 id="sharing-information" tabindex="-1">3. How We Share Information</h2>
+<p>We do not sell your personal information to third parties. However, we may share information with trusted parties when necessary, including:</p>
+<ul>
+<li>Service Providers: Third-party companies that help us operate our business, such as payment processors, data hosting providers, customer support platforms, and marketing/analytics providers.</li>
+<li>Funding Partners: If you apply for financing, your information may be shared with lenders, funding providers, or financial institutions that help evaluate or fulfill your request.</li>
+<li>Legal Requirements: We may disclose information if required to comply with laws, respond to legal requests/court orders, protect the rights and safety of our company or users, or prevent fraud or illegal activity.</li>
+</ul>
+</section>
+
+<section aria-labelledby="cookies-and-tracking">
+<h2 id="cookies-and-tracking" tabindex="-1">4. Cookies and Tracking Technologies</h2>
+<p>Our website may use cookies, pixels, and similar tracking technologies to remember user preferences, analyze website traffic, improve website functionality, and provide marketing or advertising services. Most web browsers allow you to control or disable cookies through browser settings. Our website does not currently respond to browser “Do Not Track” signals. Where required by law, we honor recognized opt-out preference signals such as the Global Privacy Control (GPC).</p>
+</section>
+
+<section aria-labelledby="data-security">
+<h2 id="data-security" tabindex="-1">5. Data Security</h2>
+<p>We use appropriate technical and organizational measures to help protect your personal information from unauthorized access, misuse, or disclosure, such as secure servers, data encryption, access controls, and monitoring systems. However, no online transmission or storage system can be guaranteed to be completely secure.</p>
+</section>
+
+<section aria-labelledby="data-retention">
+<h2 id="data-retention" tabindex="-1">6. Data Retention</h2>
+<p>We keep personal information only as long as necessary for the purposes described in this policy, including providing services, meeting legal or regulatory obligations, resolving disputes, and enforcing agreements. When information is no longer needed, it may be securely deleted or anonymized.</p>
+</section>
+
+<section aria-labelledby="third-party-websites">
+<h2 id="third-party-websites" tabindex="-1">7. Third-Party Websites</h2>
+<p>Our website may contain links to third-party websites or services. We are not responsible for the privacy practices or content of these external sites. We encourage users to review the privacy policies of any third-party websites they visit.</p>
+</section>
+
+<section aria-labelledby="state-privacy">
+<h2 id="state-privacy" tabindex="-1">8. U.S. State Privacy Law Disclosures</h2>
+<p>Depending on your state of residence, you may have additional rights under applicable state privacy laws, including the right to: confirm whether we process your personal information; access, correct, or delete it; obtain a portable copy; opt out of the sale or sharing of personal information or targeted advertising; and limit the use of sensitive personal information (such as government identification numbers or financial account details). We do not sell personal information for monetary consideration. To the extent any data sharing for advertising purposes is considered a “sale” or “sharing” under applicable law, you may opt out by contacting us at the information in Section 12. You may designate an authorized agent to submit a request on your behalf, subject to verification. We will respond to verifiable requests within the time required by applicable law and will not discriminate against you for exercising these rights.</p>
+<p>If you are a California resident or resident of another state providing similar rights, you may also submit an opt-out request by emailing <a href="mailto:deals@fairmontcp.net">deals@fairmontcp.net</a> or calling <a href="tel:+17866002724">(786) 600-2724</a>.</p>
+<h3>Your Privacy Rights</h3>
+<p>Depending on your location, you may have certain rights regarding your personal information, such as:</p>
+<ul>
+<li>Request access to your personal data</li>
+<li>Request correction of inaccurate information</li>
+<li>Request deletion of your data</li>
+<li>Request information about how your data is used</li>
+<li>Opt out of certain communications</li>
+</ul>
+<p>To exercise these rights or make a privacy-related request, please contact us using the information in Section 12. We will take reasonable steps to verify your identity and respond in accordance with applicable law.</p>
+<p>We do not sell personal information for monetary consideration. To the extent any data sharing for advertising purposes constitutes a “sale” or “sharing” under applicable law, you may opt out by contacting us as set forth in Section 12.</p>
+</section>
+
+<section aria-labelledby="childrens-privacy">
+<h2 id="childrens-privacy" tabindex="-1">10. Children’s Privacy</h2>
+<p>Our services are intended for adults and business owners. We do not knowingly collect personal information from individuals under the age of 18. If we become aware that information from a minor has been collected, we will take steps to remove it.</p>
+</section>
+
+<section aria-labelledby="policy-updates">
+<h2 id="policy-updates" tabindex="-1">11. Changes to This Privacy Policy</h2>
+<p>We may update this Privacy Policy from time to time to reflect changes in our services, legal requirements, or business practices. The updated version will be posted on this page with a revised effective date.</p>
+</section>
+
+<section aria-labelledby="contact-us">
+<h2 id="contact-us" tabindex="-1">12. Contact Us</h2>
+<p>If you have questions about this Privacy Policy or how your information is handled, please contact us:</p>
+<ul>
+<li>Fairmont Credit Partners</li>
+<li>Email: <a href="mailto:deals@fairmontcp.net">deals@fairmontcp.net</a></li>
+<li>Phone: <a href="tel:+17866002724">(786) 600-2724</a></li>
+</ul>
+</section>
+        </article>
     </div>
-
-    <article class="article-body">
-        <p>FCP ("FCP," "we," "us," or "our") provides merchant cash advance brokerage services. This Privacy Policy explains how we collect, use, and handle information when you visit our website, request assistance, or communicate with our team.</p>
-
-        <h2 id="information-we-collect">1. Information We Collect</h2>
-
-        <h3>Information you provide</h3>
-
-        <p>We collect information you provide when requesting our services or communicating with us. This may include your name, business name, email address, telephone number, business and application information, supporting documents, and correspondence.</p>
-
-        <p>For SMS communications, we maintain your mobile number, messaging preferences, consent records, and relevant message history to provide support and manage your communication preferences.</p>
-
-        <p>Our inquiry form submits your name, company, email address, telephone number, and message to a hosted database we use to manage inquiries. Our application form is an embedded form hosted by our customer relationship management provider, which processes the application information you enter and transmits it to us, including by email.</p>
-
-        <h3>Information collected automatically</h3>
-
-        <p>Our website is served by a third-party hosting provider that automatically records standard server log information for each request, including your IP address, browser and device type, the pages requested, referring pages, and the date and time of your visit.</p>
-
-        <p>We use Google Tag Manager and Google Ads conversion tracking. These Google services set or read cookies and similar identifiers in your browser to measure website activity, attribute form submissions to advertising campaigns, and support advertising and remarketing. Information collected through these services is processed by Google in accordance with its own privacy terms.</p>
-
-        <p>Our pages load fonts from Google's font service, so Google receives the request information needed to deliver those files, including your IP address. Our embedded application form is loaded from our customer relationship management provider, which may also set cookies or similar identifiers on the pages where it appears.</p>
-
-        <p>Our cookie notice records your accept-or-decline choice in your browser's local storage so that the notice is not shown again on that browser.</p>
-
-        <p><strong>We do not use website analytics or advertising technologies other than those described above.</strong></p>
-
-        <h2 id="how-we-use-information">2. How We Use Information</h2>
-
-        <p>We use information to:</p>
-
-        <ul>
-            <li>Respond to inquiries and provide personal guidance.</li>
-            <li>Assist with requested funding applications and related documentation.</li>
-            <li>Provide merchant support, follow-ups, and customer success assistance.</li>
-            <li>Coordinate communications about active requests.</li>
-            <li>Maintain communication preferences and consent records.</li>
-            <li>Measure website and advertising performance.</li>
-            <li>Protect our services, resolve disputes, and meet applicable recordkeeping and legal obligations.</li>
-        </ul>
-
-        <h2 id="sharing-information">3. Sharing Information</h2>
-
-        <p>When you request assistance with a funding application, we may share relevant business and application information with funding providers to evaluate and process your requested transaction, subject to any required authorization.</p>
-
-        <p>Service providers may process information on our behalf to support our website, business operations, and customer communications. This includes our website host, our customer relationship management and form provider, our email delivery provider, our hosted database provider, and the advertising and tag management services described in Section 1. We may also disclose information when required by law or valid legal process. These disclosures remain subject to the SMS-specific protections below.</p>
-
-        <p><strong>FCP does not sell or share consumer personal information, including mobile phone numbers, with third parties or affiliates for marketing, promotional, or lead-generation purposes.</strong></p>
-
-        <p><strong>Text messaging originator opt-in data and consent will not be shared with third parties. Consent to receive messages from FCP does not authorize another business to send you messages.</strong></p>
-
-        <h2 id="sms-communications">4. SMS Communications</h2>
-
-        <p>With your consent, FCP sends merchant-support text messages, including personal guidance, follow-ups, responses to questions, and customer success assistance.</p>
-
-        <p>Message frequency varies based on your interactions and support needs. Message and data rates may apply.</p>
-
-        <p><strong>Reply STOP to unsubscribe from SMS messages. Reply HELP for assistance</strong>, or call <a href="tel:+17866002724">(786) 600-2724</a>. We honor opt-out requests and retain the information needed to maintain your messaging preferences.</p>
-
-        <p>SMS participation is voluntary and is not a condition of purchasing a product or service. Additional messaging terms are available in our <a href="/terms-of-service">Terms of Service</a>.</p>
-
-        <h2 id="security-and-retention">5. Information Security and Retention</h2>
-
-        <p>We use reasonable administrative, technical, and organizational safeguards to protect information. No electronic storage or transmission method can guarantee complete security.</p>
-
-        <p>We retain information for as long as reasonably necessary to provide requested services, maintain consent and opt-out records, resolve disputes, and satisfy applicable legal requirements.</p>
-
-        <h2 id="your-choices">6. Your Choices and Requests</h2>
-
-        <p>You may contact us to request access to, correction of, or deletion of your information, subject to applicable law and legitimate retention requirements. We may need to verify your identity before completing a request.</p>
-
-        <p>You may withdraw SMS consent at any time by replying STOP or contacting our support team.</p>
-
-        <p>You may decline cookies through our cookie notice, and you can block or delete cookies through your browser settings. You can also manage Google advertising personalization through Google's own ad settings. Declining or blocking cookies does not affect your ability to contact us or submit a request.</p>
-
-        <h2 id="policy-updates">7. Policy Updates</h2>
-
-        <p>We may update this Privacy Policy as our services or practices change. The current version and last-updated date will be published on this page. Where required, we will provide additional notice or obtain consent.</p>
-
-        <h2 id="contact-us">8. Contact Us</h2>
-
-        <div class="policy-contact">
-            <p><strong>FCP</strong></p>
-            <p>Phone: <a href="tel:+17866002724">(786) 600-2724</a></p>
-            <p>Business mailing address: 66 W Flagler St, Miami, FL 33130</p>
-        </div>
-    </article>
 </main>
+<script>
+(() => {
+    const page = document.querySelector('.privacy-page');
+    const header = document.querySelector('.header');
+    const links = Array.from(document.querySelectorAll('.policy-toc a'));
+    const headings = links.map(link => document.getElementById(link.hash.slice(1)));
+    const updateOffset = () => {
+        page.style.setProperty('--policy-offset', Math.ceil(header.getBoundingClientRect().height + 24) + 'px');
+    };
+    const setActive = id => links.forEach(link => {
+        if (link.hash === '#' + id) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+    });
+    const updateActive = () => {
+        const threshold = header.getBoundingClientRect().height + 40;
+        let current = headings[0];
+        for (const heading of headings) {
+            if (heading.getBoundingClientRect().top <= threshold) current = heading;
+        }
+        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) current = headings[headings.length - 1];
+        setActive(current.id);
+    };
+    // Native links preserve fragment navigation, browser history, and no-JavaScript behavior.
+    links.forEach(link => link.addEventListener('click', () => {
+        const target = document.getElementById(link.hash.slice(1));
+        setActive(target.id);
+        target.focus({ preventScroll: true });
+    }));
+    let pending = false;
+    window.addEventListener('scroll', () => {
+        if (!pending) {
+            pending = true;
+            requestAnimationFrame(() => { updateActive(); pending = false; });
+        }
+    }, { passive: true });
+    window.addEventListener('resize', () => { updateOffset(); updateActive(); });
+    window.addEventListener('hashchange', () => {
+        if (headings.some(heading => '#' + heading.id === location.hash)) setActive(location.hash.slice(1));
+    });
+    updateOffset();
+    if (location.hash && headings.some(heading => '#' + heading.id === location.hash)) setActive(location.hash.slice(1));
+    else updateActive();
+})();
+</script>
 
 <footer class="site-footer">
     <div class="footer-inner">
