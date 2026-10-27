@@ -894,7 +894,7 @@
 
         .footer-contact-info a:hover { color: var(--accent); }
 
-        .footer-links { display: flex; gap: 1.5rem 2rem; flex-wrap: wrap; }
+        .footer-links { display: flex; gap: 1.5rem 2rem; flex-wrap: wrap; align-items: center; }
 
         .footer-links a {
             font-size: 0.82rem;
@@ -904,6 +904,33 @@
         }
 
         .footer-links a:hover { color: rgba(255,255,255,0.7); }
+
+        .footer-links a[href="/privacy-policy"] {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            text-decoration-thickness: 1px;
+            padding: 0.7rem 1rem;
+            min-height: 44px;
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 6px;
+            background: rgba(255,255,255,0.08);
+            align-self: center;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .footer-links a[href="/privacy-policy"]:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.16);
+            border-color: #fff;
+        }
+
+        .footer-links a[href="/privacy-policy"]:focus-visible {
+            outline: 2px solid #fff;
+            outline-offset: 4px;
+        }
 
         .footer-bottom {
             display: flex;
