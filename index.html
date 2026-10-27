@@ -897,37 +897,40 @@
         .footer-links { display: flex; gap: 1.5rem 2rem; flex-wrap: wrap; align-items: center; }
 
         .footer-links a {
-            font-size: 0.82rem;
+            display: inline-flex;
+            align-items: center;
+            min-height: 44px;
+            font-size: 0.9rem;
             font-weight: 500;
-            color: rgba(255,255,255,0.35);
+            color: rgba(255,255,255,0.7);
             transition: color 0.2s;
         }
 
-        .footer-links a:hover { color: rgba(255,255,255,0.7); }
+        .footer-links a:hover { color: #fff; }
 
-        .footer-links a[href="/privacy-policy"] {
-            font-size: 1rem;
+        .footer-legal { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 1.5rem; }
+
+        .footer-legal a {
+            display: inline-flex;
+            align-items: center;
+            min-height: 44px;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: #c6d1de;
+            transition: color 0.2s;
+        }
+
+        .footer-legal a[href="/privacy-policy"] {
             font-weight: 600;
-            color: #fff;
             text-decoration: underline;
             text-underline-offset: 4px;
             text-decoration-thickness: 1px;
-            padding: 0.7rem 1rem;
-            min-height: 44px;
-            border: 1px solid rgba(255,255,255,0.4);
-            border-radius: 6px;
-            background: rgba(255,255,255,0.08);
-            align-self: center;
-            transition: background 0.2s, border-color 0.2s;
         }
 
-        .footer-links a[href="/privacy-policy"]:hover {
-            color: #fff;
-            background: rgba(255,255,255,0.16);
-            border-color: #fff;
-        }
+        .footer-legal a:hover { color: #fff; }
 
-        .footer-links a[href="/privacy-policy"]:focus-visible {
+        .footer-links a:focus-visible,
+        .footer-legal a:focus-visible {
             outline: 2px solid #fff;
             outline-offset: 4px;
         }
@@ -936,6 +939,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 1rem 2rem;
         }
 
         footer p {
@@ -960,10 +964,11 @@
             .sol-grid { grid-template-columns: 1fr; }
             .contact { grid-template-columns: 1fr; gap: 3rem; }
             .cta-band::after { font-size: 8rem; }
-            .footer-top { flex-direction: column; gap: 2rem; }
+            .footer-top { flex-direction: column; gap: 2rem; align-items: center; }
             .footer-inner { text-align: center; }
             .footer-links { justify-content: center; }
-            .footer-bottom { justify-content: center; }
+            .footer-bottom { flex-direction: column-reverse; gap: 0.75rem; }
+            .footer-legal { justify-content: center; }
         }
 
         @media (max-width: 640px) {
@@ -1272,17 +1277,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <span style="font-size:0.82rem;color:rgba(255,255,255,0.4);">66 W Flagler St, Miami, FL 33130</span>
                 </div>
             </div>
-            <div class="footer-links">
+            <nav class="footer-links" aria-label="Footer">
                 <a href="#about">About</a>
                 <a href="#solutions">Solutions</a>
                 <a href="#contact">Contact</a>
                 <a href="/faq/">FAQ</a>
-                <a href="/privacy-policy">Privacy Policy</a>
-                <a href="/terms-of-service">Terms of Service</a>
-            </div>
+            </nav>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2026 Fairmont Credit Partners. All rights reserved.</p>
+            <nav class="footer-legal" aria-label="Legal">
+                <a href="/privacy-policy">Privacy Policy</a>
+                <a href="/terms-of-service">Terms of Service</a>
+            </nav>
         </div>
     </div>
 </footer>
