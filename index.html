@@ -231,10 +231,10 @@
             inset: 0;
             background: linear-gradient(
                 160deg,
-                rgba(9, 23, 41, 0.25) 0%,
-                rgba(9, 23, 41, 0.05) 30%,
-                rgba(9, 23, 41, 0.1) 50%,
-                rgba(9, 23, 41, 0.6) 80%,
+                rgba(9, 23, 41, 0.68) 0%,
+                rgba(9, 23, 41, 0.68) 30%,
+                rgba(9, 23, 41, 0.68) 50%,
+                rgba(9, 23, 41, 0.78) 80%,
                 rgba(9, 23, 41, 0.97) 100%
             );
             z-index: 1;
@@ -1069,6 +1069,48 @@
         .hero h1 .word {
             display: inline-block;
         }
+        /* Visual consistency and accessible interaction states. */
+        .nav-links .nav-cta { display: inline-flex; align-items: center; min-height: 44px; }
+        .nav-links .nav-cta:hover, .submit-btn:hover { background: #1568b0; }
+        .hero h1 em, .hero .arrow-link:hover { color: #82c4ff; }
+        .hero-col p, .hero-tag { color: #fff; }
+        .cta-band { background: #1568b0; padding: 4.5rem 0; }
+        .cta-band-inner { padding: 0 clamp(1.5rem, 4vw, 3.5rem); }
+        .cta-band p { color: #fff; }
+        .contact-form .form-sub { color: #617287; }
+        .f-group input, .f-group textarea { border-color: #7c8da0; }
+        .f-group input::placeholder, .f-group textarea::placeholder { color: #617287; opacity: 1; }
+        .footer-contact-info a { display: inline-flex; align-items: center; min-height: 44px; }
+        .footer-contact-info a, .footer-contact-info span, footer p, .marquee span { color: #b8c6d6 !important; }
+        footer p { font-size: 0.76rem; }
+        .footer-contact-info a:hover { color: #fff !important; }
+        #cookieBanner button { min-height: 44px; }
+        #cookieBanner button:first-child { background: #1568b0 !important; }
+        a:focus-visible, button:focus-visible { outline: 3px solid #1568b0; outline-offset: 4px; }
+        .cta-band a:focus-visible { outline-color: #fff; }
+        footer a:focus-visible, .hero a:focus-visible, .marquee-wrap button:focus-visible, #cookieBanner button:focus-visible { outline-color: #82c4ff; }
+        section[id] { scroll-margin-top: 104px; }
+        .mob-menu[hidden] { display: none; }
+        .mob-toggle { width: 44px; height: 44px; }
+        .mob-toggle i { left: 6px; width: 32px; }
+        .mob-toggle i:nth-child(1) { top: 12px; }
+        .mob-toggle i:nth-child(2) { top: 21px; }
+        .mob-toggle i:nth-child(3) { top: 30px; }
+        .mob-toggle.active i:nth-child(1), .mob-toggle.active i:nth-child(3) { top: 21px; }
+        .marquee-wrap { position: relative; padding-bottom: 3.5rem; }
+        .motion-toggle { position: absolute; bottom: 0.25rem; right: clamp(1.5rem, 4vw, 3.5rem); min-height: 44px; padding: 0 0.5rem; background: transparent; border: 0; color: #b8c6d6; font: inherit; font-size: 0.75rem; text-decoration: underline; cursor: pointer; }
+        .marquee.paused { animation-play-state: paused; }
+        @media (max-width: 640px) { .cta-band { padding: 3.5rem 0; } }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+            .reveal.pending { opacity: 1; transform: none; }
+            .marquee { animation: none !important; width: auto; flex-wrap: wrap; justify-content: center; gap: 1rem 2rem; padding: 0 1.5rem; }
+            .marquee span { white-space: normal; gap: 2rem; }
+            .marquee span:nth-child(n+7) { display: none; }
+            .marquee-wrap { padding-bottom: 1.5rem; }
+            .motion-toggle { display: none; }
+        }
     </style>
 </head>
 <body>
@@ -1088,13 +1130,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <a href="#contact">Contact</a>
             <a href="/app/" class="nav-cta">Apply Now</a>
         </div>
-        <button class="mob-toggle" id="mobToggle" aria-label="Menu">
+        <button class="mob-toggle" id="mobToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobMenu">
             <i></i><i></i><i></i>
         </button>
     </div>
 </div>
 
-<div class="mob-menu" id="mobMenu">
+<div class="mob-menu" id="mobMenu" hidden inert>
     <a href="#about">About</a>
     <a href="#solutions">Solutions</a>
     <a href="#contact">Contact</a>
@@ -1129,6 +1171,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- ─── MARQUEE ─── -->
 <div class="marquee-wrap">
+    <button class="motion-toggle" id="motionToggle" aria-pressed="false" aria-controls="marquee">Pause animation</button>
     <div class="marquee" id="marquee">
         <span>Fast Approvals</span>
         <span>Transparent Terms</span>
@@ -1329,16 +1372,56 @@ onScroll();
 // ─── Mobile menu ───
 const mobToggle = document.getElementById('mobToggle');
 const mobMenu = document.getElementById('mobMenu');
-mobToggle.addEventListener('click', () => {
-    mobToggle.classList.toggle('active');
-    mobMenu.classList.toggle('open');
-    document.body.style.overflow = mobMenu.classList.contains('open') ? 'hidden' : '';
-});
+let menuBackground = [];
+let previousOverflow = '';
+function setMenu(open, restoreFocus = true) {
+    if (open === !mobMenu.hidden) return;
+    mobToggle.classList.toggle('active', open);
+    mobToggle.setAttribute('aria-expanded', String(open));
+    mobToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    mobMenu.hidden = !open;
+    mobMenu.inert = !open;
+    mobMenu.classList.toggle('open', open);
+    if (open) {
+        previousOverflow = document.body.style.overflow;
+        menuBackground = [...document.body.children, document.querySelector('.nav .logo')]
+            .filter(el => el && el !== nav && el !== mobMenu && !['SCRIPT', 'STYLE'].includes(el.tagName))
+            .map(el => [el, el.inert]);
+        menuBackground.forEach(([el]) => el.inert = true);
+        document.body.style.overflow = 'hidden';
+        mobMenu.querySelector('a').focus();
+    } else {
+        menuBackground.forEach(([el, inert]) => el.inert = inert);
+        document.body.style.overflow = previousOverflow;
+        if (restoreFocus) mobToggle.focus();
+    }
+}
+mobToggle.addEventListener('click', () => setMenu(mobMenu.hidden));
 mobMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    mobToggle.classList.remove('active');
-    mobMenu.classList.remove('open');
-    document.body.style.overflow = '';
+    setMenu(false, false);
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { target.setAttribute('tabindex', '-1'); target.focus({preventScroll: true}); }
 }));
+document.addEventListener('keydown', e => {
+    if (mobMenu.hidden) return;
+    if (e.key === 'Escape') { e.preventDefault(); setMenu(false); }
+    if (e.key === 'Tab') {
+        const controls = [mobToggle, ...mobMenu.querySelectorAll('a')];
+        const current = controls.indexOf(document.activeElement);
+        e.preventDefault();
+        controls[(current + (e.shiftKey ? controls.length - 1 : 1)) % controls.length].focus();
+    }
+});
+matchMedia('(min-width: 641px)').addEventListener('change', e => {
+    if (e.matches && !mobMenu.hidden) { setMenu(false, false); document.querySelector('.nav .logo').focus(); }
+});
+const motionToggle = document.getElementById('motionToggle');
+motionToggle.addEventListener('click', () => {
+    const paused = document.getElementById('marquee').classList.toggle('paused');
+    motionToggle.setAttribute('aria-pressed', String(paused));
+    motionToggle.textContent = paused ? 'Resume animation' : 'Pause animation';
+});
+document.querySelectorAll('#marquee span:nth-child(n+7)').forEach(el => el.setAttribute('aria-hidden', 'true'));
 
 // ─── Reveal on scroll ───
 document.querySelectorAll('.reveal').forEach(el => el.classList.add('pending'));

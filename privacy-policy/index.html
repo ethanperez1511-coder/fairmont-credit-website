@@ -23,7 +23,7 @@
         /* Privacy-page styles only; shared site files are unchanged. */
         body { background: #fff; }
         .privacy-page { font-family: "Segoe UI", Arial, sans-serif; color: #101827; --policy-offset: 112px; }
-        .policy-container { width: min(1232px, calc(100% - 48px)); margin-inline: auto; }
+        .policy-container { width: 100%; max-width: 1320px; padding-inline: clamp(1.5rem, 4vw, 3.5rem); margin-inline: auto; }
         .policy-title { border-bottom: 1px solid #e1e5eb; padding: 32px 0 44px; }
         .policy-title h1 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.2; font-weight: 700; margin-bottom: 12px; }
         .policy-updated { color: #56667a; font-size: 16px; line-height: 1.6; }
@@ -31,7 +31,7 @@
         .policy-toc { position: sticky; top: var(--policy-offset); border: 1px solid #dfe4eb; border-radius: 12px; padding: 24px 25px; max-height: calc(100dvh - var(--policy-offset) - 24px); overflow-y: auto; }
         .policy-toc h2 { font-size: 18px; font-weight: 700; line-height: 1.5; margin: 0 0 16px; }
         .policy-toc ol { list-style: none; padding: 0; margin: 0; }
-        .policy-toc a { display: block; border-left: 3px solid transparent; padding: 9px 12px; border-radius: 0 7px 7px 0; font-size: 15px; line-height: 1.5; color: #354963; }
+        .policy-toc a { display: block; min-height: 44px; border-left: 3px solid transparent; padding: 10px 12px; border-radius: 0 7px 7px 0; font-size: 15px; line-height: 1.5; color: #354963; }
         .policy-toc a:hover { background: #f4f5f7; color: #101827; }
         .policy-toc a[aria-current="location"] { border-left-color: #101827; background: #f2f3f5; color: #101827; font-weight: 500; }
         .policy-copy { min-width: 0; font-size: 18px; line-height: 1.75; color: #354963; overflow-wrap: anywhere; }
@@ -50,12 +50,46 @@
         .header-nav a:focus-visible,
         .header .logo:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
         .footer-links a:focus-visible { color: var(--white); }
+        /* Match the homepage shell while preserving the policy's reading layout. */
+        .header-inner, .footer-inner { max-width: 1320px; padding-inline: clamp(1.5rem, 4vw, 3.5rem); }
+        .header-inner { min-height: 80px; padding-block: 0.375rem; }
+        .header .logo { display: flex; align-items: center; flex-shrink: 0; }
+        .header .logo img { display: block; height: 68px; width: auto; }
+        .header-nav { gap: 0.5rem; }
+        .header-nav a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0.5rem 1rem; border-radius: 6px; letter-spacing: 0.01em; }
+        .header-nav a:hover { color: var(--ink); background: var(--wash); }
+        .header-nav a.nav-cta { background: var(--ink); color: var(--white); margin-left: 0.75rem; padding: 0.55rem 1.4rem; white-space: nowrap; }
+        .header-nav a.nav-cta:hover { background: #1568b0; color: var(--white); }
+        .footer-contact-info { gap: 0; }
+        .footer-contact-info a, .footer-contact-info span { color: #b8c6d6; font-size: 0.85rem; }
+        .footer-contact-info a { display: inline-flex; align-items: center; min-height: 44px; width: fit-content; }
+        .footer-contact-info a:hover, .footer-links a:hover { color: #fff; }
+        .footer-links { gap: 0.25rem 2rem; }
+        .footer-links a { display: inline-flex; align-items: center; min-height: 44px; color: #b8c6d6; }
+        .footer-bottom { gap: 1rem 2rem; flex-wrap: nowrap; }
+        footer.site-footer p { color: #b8c6d6; font-size: 0.76rem; max-width: 42rem; }
+        .footer-legal { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 1.5rem; flex-shrink: 0; }
+        .footer-legal a { display: inline-flex; align-items: center; min-height: 44px; font-size: 0.9375rem; font-weight: 500; color: #c6d1de; transition: color 0.2s; }
+        .footer-legal a[href="/privacy-policy"] { font-weight: 600; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+        .footer-legal a:hover { color: #fff; }
+        .footer-links a:focus-visible, .footer-legal a:focus-visible, .footer-contact-info a:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+        @media (max-width: 960px) {
+            .footer-top { flex-direction: column; gap: 2rem; align-items: center; }
+            .footer-inner { text-align: center; }
+            .footer-contact-info { align-items: center; }
+            .footer-links, .footer-legal { justify-content: center; }
+            .footer-bottom { flex-direction: column-reverse; align-items: center; gap: 0.75rem; }
+        }
         @media (max-width: 900px) {
             .policy-layout { grid-template-columns: 230px minmax(0, 1fr); gap: 28px; }
             .policy-toc { padding: 20px 16px; }
         }
         @media (max-width: 700px) {
-            .policy-container { width: calc(100% - 40px); }
+            .header-inner { gap: 0.75rem; }
+            .header .logo { min-width: 0; flex-shrink: 1; }
+            .header .logo img { max-width: 100%; height: auto; max-height: 68px; width: 187.55px; }
+            .header-nav { flex-shrink: 0; }
+            .header-nav a.nav-cta { margin-left: 0; padding-inline: 1rem; }
             .policy-title { padding: 28px 0; }
             .policy-layout { grid-template-columns: minmax(0, 1fr); gap: 36px; padding-top: 28px; }
             .policy-toc { position: static; max-height: none; overflow: visible; }
@@ -74,7 +108,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <header class="header">
     <div class="header-inner">
-        <a href="/" class="logo"><img src="/assets/logo.jpg" alt="Fairmont Credit Partners" width="180" height="52"></a>
+        <a href="/" class="logo"><img src="/assets/logo.jpg" alt="Fairmont Credit Partners" width="684" height="248"></a>
         <nav class="header-nav">
             <a href="/blog/">Insights</a>
             <a href="/faq/">FAQ</a>
@@ -281,12 +315,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <a href="/blog/">Insights</a>
                 <a href="/faq/">FAQ</a>
                 <a href="/app/">Apply</a>
-                <a href="/privacy-policy">Privacy Policy</a>
-                <a href="/terms-of-service">Terms of Service</a>
             </div>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2026 Fairmont Credit Partners. All rights reserved. Fairmont Credit Partners is a commercial finance company. We do not offer consumer loans.</p>
+            <nav class="footer-legal" aria-label="Legal">
+                <a href="/privacy-policy">Privacy Policy</a>
+                <a href="/terms-of-service">Terms of Service</a>
+            </nav>
         </div>
     </div>
 </footer>
