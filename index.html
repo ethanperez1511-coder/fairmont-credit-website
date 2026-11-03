@@ -773,8 +773,8 @@
 
         .contact-form {
             background: var(--wash);
-            border-radius: 16px;
-            padding: clamp(2rem, 3vw, 3rem);
+            border-radius: 20px;
+            padding: clamp(1.5rem, 4vw, 3.5rem);
         }
 
         .contact-form h3 {
@@ -790,9 +790,9 @@
             margin-bottom: 2rem;
         }
 
-        .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+        .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; align-items: end; }
 
-        .f-group { margin-bottom: 1.25rem; }
+        .f-group { margin-bottom: 1.5rem; }
 
         .f-group label {
             display: block;
@@ -1111,11 +1111,11 @@
             .marquee-wrap { padding-bottom: 1.5rem; }
             .motion-toggle { display: none; }
         }
-    .sms-consent { display: flex; align-items: flex-start; gap: 12px; margin: 20px 0 12px; }
+    .sms-consent { display: flex; align-items: flex-start; gap: 14px; margin: 28px 0 16px; padding-top: 24px; border-top: 1px solid #dce4ed; }
         .sms-consent input { flex: 0 0 auto; width: 20px; height: 20px; margin-top: 4px; accent-color: #1568b0; }
         .sms-consent label, .sms-support { font-size: 0.875rem; line-height: 1.65; color: #33465c; }
         .sms-consent a, .sms-support a { text-decoration: underline; overflow-wrap: anywhere; }
-        .sms-support { margin-bottom: 16px; }
+        .sms-support { margin-bottom: 24px; }
         #inquiryStatus { margin: 12px 0; color: #33465c; }
         .sms-consent input:focus-visible { outline: 3px solid #1568b0; outline-offset: 3px; }
     </style>
