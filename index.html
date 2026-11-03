@@ -1111,6 +1111,13 @@
             .marquee-wrap { padding-bottom: 1.5rem; }
             .motion-toggle { display: none; }
         }
+    .sms-consent { display: flex; align-items: flex-start; gap: 12px; margin: 20px 0 12px; }
+        .sms-consent input { flex: 0 0 auto; width: 20px; height: 20px; margin-top: 4px; accent-color: #1568b0; }
+        .sms-consent label, .sms-support { font-size: 0.875rem; line-height: 1.65; color: #33465c; }
+        .sms-consent a, .sms-support a { text-decoration: underline; overflow-wrap: anywhere; }
+        .sms-support { margin-bottom: 16px; }
+        #inquiryStatus { margin: 12px 0; color: #33465c; }
+        .sms-consent input:focus-visible { outline: 3px solid #1568b0; outline-offset: 3px; }
     </style>
 </head>
 <body>
@@ -1128,6 +1135,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <a href="#about">About</a>
             <a href="#solutions">Solutions</a>
             <a href="#contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
             <a href="/app/" class="nav-cta">Apply Now</a>
         </div>
         <button class="mob-toggle" id="mobToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobMenu">
@@ -1140,6 +1148,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="#about">About</a>
     <a href="#solutions">Solutions</a>
     <a href="#contact">Contact</a>
+    <a href="/privacy-policy">Privacy Policy</a>
 </div>
 
 <!-- ─── HERO ─── -->
@@ -1296,7 +1305,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <input type="email" id="email" name="email" required placeholder="you@company.com">
                 </div>
                 <div class="f-group">
-                    <label for="phone">Phone</label>
+                    <label for="phone">Phone (optional unless opting into SMS)</label>
                     <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567">
                 </div>
             </div>
@@ -1304,7 +1313,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <label for="message">Message</label>
                 <textarea id="message" name="message" required placeholder="Tell us about your business and what you're looking for."></textarea>
             </div>
-            <button type="submit" class="submit-btn" onclick="console.log('Button Clicked!'); gtag_report_conversion();">Send Inquiry</button>
+            <div class="sms-consent">
+                <input type="checkbox" id="smsConsent" name="sms_consent" aria-describedby="smsSupport">
+                <label for="smsConsent">I agree to receive SMS text messages from Fairmont Credit Partners about my financing inquiry, application-status updates, appointment scheduling, and customer support. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for assistance. Consent is not a condition of purchase. See our <a href="/privacy-policy">Privacy Policy</a>.</label>
+            </div>
+            <p id="smsSupport" class="sms-support">Questions? Email <a href="mailto:deals@fairmontcp.net">deals@fairmontcp.net</a> or call <a href="tel:+13474103246">+1 (347) 410-3246</a>.</p>
+            <p id="inquiryStatus" role="status" aria-live="polite" tabindex="-1"></p>
+            <button type="submit" class="submit-btn">Send Inquiry</button>
         </form>
     </div>
 </section>
@@ -1399,7 +1414,8 @@ function setMenu(open, restoreFocus = true) {
 mobToggle.addEventListener('click', () => setMenu(mobMenu.hidden));
 mobMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
     setMenu(false, false);
-    const target = document.querySelector(a.getAttribute('href'));
+    const href = a.getAttribute('href');
+    const target = href.startsWith('#') ? document.querySelector(href) : null;
     if (target) { target.setAttribute('tabindex', '-1'); target.focus({preventScroll: true}); }
 }));
 document.addEventListener('keydown', e => {
@@ -1452,56 +1468,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// ─── Supabase config ───
-const SUPABASE_URL = 'https://ivdjgxutjafwjvroltjf.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml2ZGpneHV0amFmd2p2cm9sdGpmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1Njc3NjcsImV4cCI6MjA5MzE0Mzc2N30.qN8Jxh3e2amTmI74kyGMbCr1O7rdKsunQ7noMp_eE5E';
-
-function supabaseInsert(table, row) {
-    return fetch(SUPABASE_URL + '/rest/v1/' + table, {
-        method: 'POST',
-        headers: {
-            'apikey': SUPABASE_ANON_KEY,
-            'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
-            'Content-Type': 'application/json',
-            'Prefer': 'return=minimal'
-        },
-        body: JSON.stringify(row)
-    });
-}
-
-// ─── Form ───
-async function handleSubmit(e) {
-    e.preventDefault();
-    const form = e.target;
-    const btn = form.querySelector('.submit-btn');
-    const orig = btn.textContent;
-    btn.textContent = 'Sending...';
-    btn.disabled = true;
-
-    const data = Object.fromEntries(new FormData(form));
-
-    const result = await supabaseInsert('inquiries', {
-        name: data.name,
-        company: data.company,
-        email: data.email,
-        phone: data.phone,
-        message: data.message
-    });
-
-    if (result.ok) {
-        btn.textContent = 'Sent — we\'ll be in touch.';
-        btn.style.background = '#167a50';
-        form.reset();
-        setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.disabled = false; }, 3000);
-    } else {
-        console.error('Submit error');
-        btn.textContent = 'Error — please try again.';
-        btn.style.background = '#a33';
-        setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.disabled = false; }, 3000);
-    }
-}
 </script>
 
 
+<script src="/assets/inquiry-validation.js"></script>
+<script src="/assets/inquiry-form.js"></script>
 </body>
 </html>
