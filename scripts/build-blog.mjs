@@ -300,6 +300,7 @@ ${ANALYTICS}
     <script type="application/ld+json">
 ${JSON.stringify(jsonld, null, 2)}
     </script>
+<link rel="stylesheet" href="/assets/footer.css">
 </head>
 <body>
 ${GTM_NOSCRIPT}
@@ -319,26 +320,25 @@ ${GTM_NOSCRIPT}
 }
 
 const FOOTER = `
-<footer class="site-footer">
+<footer class="site-footer fcp-footer">
     <div class="footer-inner">
         <div class="footer-top">
             <div>
                 <div class="footer-brand">${SITE_NAME}</div>
+                <p class="footer-description">Direct business financing with clear terms and personal support.</p>
                 <div class="footer-contact-info">
                     <a href="mailto:deals@fairmontcp.net">deals@fairmontcp.net</a>
-                    <a href="tel:+17866002724">(786) 600-2724</a>
+                    <a href="tel:+13474103246">+1 (347) 410-3246</a>
+                    <span>Monday–Friday: 08:00–18:00</span>
                     <span>66 W Flagler St, Miami, FL 33130</span>
                 </div>
             </div>
-            <div class="footer-links">
-                <a href="/#about">About</a>
-                <a href="/#solutions">Solutions</a>
-                <a href="/blog/">Insights</a>
-                <a href="/faq/">FAQ</a>
-                <a href="/app/">Apply</a>
-                <a href="/privacy-policy">Privacy Policy</a>
-                <a href="/terms-of-service">Terms of Service</a>
-            </div>
+            <nav class="footer-links" aria-label="Company"><h2>Company</h2>
+                <a href="/#about">About</a><a href="/#solutions">Solutions</a><a href="/#contact">Contact</a><a href="/faq/">FAQ</a><a href="/blog/">Insights</a><a href="/app/">Apply</a>
+            </nav>
+            <nav class="footer-legal" aria-label="Legal"><h2>Legal</h2>
+                <a href="/privacy-policy">Privacy Policy</a><a href="/terms-of-service">Terms of Service</a>
+            </nav>
         </div>
         <div class="footer-bottom">
             <p>&copy; ${new Date().getFullYear()} ${SITE_NAME}. All rights reserved. Fairmont Credit Partners is a commercial finance company. We do not offer consumer loans.</p>
@@ -377,7 +377,7 @@ const ORGANIZATION = {
     logo: { '@type': 'ImageObject', url: LOGO },
     image: OG_IMAGE,
     email: 'deals@fairmontcp.net',
-    telephone: '+1-786-358-4675',
+    telephone: '+13474103246',
     description: 'Fairmont Credit Partners is a Miami-based commercial finance company providing working capital, asset-based lending, receivables factoring, and equipment leasing to small and mid-sized businesses.',
     address: {
         '@type': 'PostalAddress',
